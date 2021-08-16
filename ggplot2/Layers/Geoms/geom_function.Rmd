@@ -1,0 +1,207 @@
+---
+title: "geom_function"
+output: html_document
+---
+
+Computes and draws a function as a continuous curve and then convert them with ggplotly.
+
+```{r setup, include=FALSE}
+library(rvest);library(xml2);library(httr)
+library(ggplot2)
+
+knitr::opts_chunk$set(
+  class.output  = "bg-light"
+)
+```
+
+```{r, include=FALSE}
+url <- "https://ggplot2.tidyverse.org/reference/geom_function.html"
+uastring <- "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+session <- html_session(url, user_agent(uastring))
+s <- html_text(html_nodes(session, xpath = "//*[@class='input']"))
+s <- unlist(strsplit(s, split = '\n', fixed = TRUE))
+```
+
+```{r example1, echo=F}
+y_0 <- s[3]
+z <- s[4:6]
+z_1 <- paste("p <-", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = c(y_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y_0,z_1))
+write(c(y_0,z_1), "./geom_function/example1.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example2, echo=F}
+y_0 <- s[3]
+z_0 <- s[9:11]
+z <- s[13]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y_0,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y_0,z_00,z_1))
+write(c(y_0,z_00,z_1), "./geom_function/example2.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example3, echo=F}
+y_0 <- s[3]
+z_0 <- s[9:11]
+z <- s[15]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y_0,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y_0,z_00,z_1))
+write(c(y_0,z_00,z_1), "./geom_function/example3.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example4, echo=F}
+y_0 <- s[3]
+z_0 <- s[9:11]
+z <- s[19]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y_0,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y_0,z_00,z_1))
+write(c(y_0,z_00,z_1), "./geom_function/example4.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example5, echo=F}
+y_0 <- s[3]
+z_0 <- s[9:11]
+z <- s[21]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y_0,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y_0,z_00,z_1))
+write(c(y_0,z_00,z_1), "./geom_function/example5.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example6, echo=F}
+y_0 <- s[3]
+z_0 <- s[9:11]
+z <- s[23]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y_0,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y_0,z_00,z_1))
+write(c(y_0,z_00,z_1), "./geom_function/example6.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example7, echo=F}
+y_0 <- s[3]
+z_0 <- s[9:11]
+z <- s[26:28]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <-", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = c(y_0,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y_0,z_00,z_1))
+write(c(y_0,z_00,z_1), "./geom_function/example7.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example8, echo=F}
+y_0 <- s[3]
+z_0 <- s[9:11]
+z <- s[31]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y_0,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y_0,z_00,z_1))
+write(c(y_0,z_00,z_1), "./geom_function/example8.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example9, echo=F}
+y_0 <- s[3]
+z_0 <- s[9:11]
+z <- s[33]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y_0,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y_0,z_00,z_1))
+write(c(y_0,z_00,z_1), "./geom_function/example9.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example10, echo=F}
+y_0 <- s[3]
+z_0 <- s[36]
+z <- s[38]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y_0,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y_0,z_0,z_1))
+write(c(y_0,z_0,z_1), "./geom_function/example10.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+
+
+
+
+
+

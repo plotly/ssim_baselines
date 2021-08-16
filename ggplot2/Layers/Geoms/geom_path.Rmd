@@ -1,0 +1,320 @@
+---
+title: "geom_path"
+output: html_document
+---
+
+Connect the observations in the order in which they appear in the data and then convert them with ggplotly.
+
+```{r setup, include=FALSE}
+library(rvest);library(xml2);library(httr)
+library(ggplot2)
+
+knitr::opts_chunk$set(
+  class.output  = "bg-light"
+)
+```
+
+```{r, include=FALSE}
+url <- "https://ggplot2.tidyverse.org/reference/geom_path.html"
+uastring <- "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+session <- html_session(url, user_agent(uastring))
+s <- html_text(html_nodes(session, xpath = "//*[@class='input']"))
+s <- unlist(strsplit(s, split = '\n', fixed = TRUE))
+```
+
+```{r example1, echo=F}
+z <- s[2]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_path/example1.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example2, echo=F}
+z <- s[3:4]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_path/example2.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example3, echo=F}
+z <- s[7]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_path/example3.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example4, echo=F}
+y <- s[11]
+z <- s[12]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_path/example4.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example5, echo=F}
+y <- s[11]
+z <- s[13]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_path/example5.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example6, echo=F}
+y <- s[17]
+z <- s[18]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_path/example6.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example7, echo=F}
+y <- s[17]
+z <- s[19]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_path/example7.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example8, echo=F}
+z <- s[22:23]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_path/example8.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example9, echo=F}
+y <- s[27]
+z <- s[28]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_path/example9.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example10, echo=F}
+y <- s[27]
+z <- s[29:31]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_path/example10.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example11, echo=F}
+y <- s[34]
+z_0 <- s[35]
+z <- s[36]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_path/example11.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example12, echo=F}
+y <- s[34]
+z_0 <- s[35]
+z <- s[37]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_path/example12.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example13, echo=F}
+y <- s[34]
+z_0 <- s[35]
+z <- s[38]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_path/example13.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example14, echo=F}
+y <- s[41]
+z <- s[42]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_path/example14.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example15, echo=F}
+y <- s[48:54]
+z_0 <- s[55]
+z <- s[57]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_path/example15.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example16, echo=F}
+y <- s[48:54]
+z_0 <- s[55]
+z <- s[58]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_path/example16.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example17, echo=F}
+y <- s[48:54]
+z_0 <- s[55]
+z <- s[59]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_path/example17.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example18, echo=F}
+y <- s[48:54]
+z_0 <- s[55]
+z <- s[61]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_path/example18.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+
+
+
+
+

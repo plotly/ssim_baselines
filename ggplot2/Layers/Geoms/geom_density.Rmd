@@ -1,0 +1,174 @@
+---
+title: "geom_density"
+output: html_document
+---
+
+Computes and draws kernel density estimate and then convert them with ggplotly.
+
+```{r setup, include=FALSE}
+library(rvest);library(xml2);library(httr)
+library(ggplot2)
+
+knitr::opts_chunk$set(
+  class.output  = "bg-light"
+)
+```
+
+```{r, include=FALSE}
+url <- "https://ggplot2.tidyverse.org/reference/geom_density.html"
+uastring <- "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+session <- html_session(url, user_agent(uastring))
+s <- html_text(html_nodes(session, xpath = "//*[@class='input']"))
+s <- unlist(strsplit(s, split = '\n', fixed = TRUE))
+```
+
+```{r example1, echo=F}
+z <- s[1:2]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_density/example1.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example2, echo=F}
+z <- s[4:5]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_density/example2.R")
+```
+
+```{r, error=TRUE}
+plotly::ggplotly(p)
+```
+
+```{r example3, echo=F}
+z <- s[7:8]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_density/example3.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example4, echo=F}
+z <- s[9:10]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_density/example4.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example5, echo=F}
+z <- s[12:14]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_density/example5.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example6, echo=F}
+z <- s[15:17]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_density/example6.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example7, echo=F}
+z <- s[25:26]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_density/example7.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example8, echo=F}
+z <- s[28:29]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_density/example8.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example9, echo=F}
+z <- s[32:33]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_density/example9.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

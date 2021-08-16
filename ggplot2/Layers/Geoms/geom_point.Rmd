@@ -1,0 +1,233 @@
+---
+title: "geom_point"
+output: html_document
+---
+
+Create scatterplots and then convert them with ggplotly
+
+```{r setup, include=FALSE}
+library(rvest);library(xml2);library(httr)
+library(ggplot2)
+
+knitr::opts_chunk$set(
+  class.output  = "bg-light"
+)
+```
+
+```{r, include=FALSE}
+url <- "https://ggplot2.tidyverse.org/reference/geom_point.html"
+uastring <- "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+session <- html_session(url, user_agent(uastring))
+s <- html_text(html_nodes(session, xpath = "//*[@class='input']"))
+s <- unlist(strsplit(s, split = '\n', fixed = TRUE))
+```
+
+```{r example1, echo=F}
+y <- s[1]
+z <- s[2]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_point/example1.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example2, echo=F}
+y <- s[1]
+z <- s[5]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_point/example2.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example3, echo=F}
+y <- s[1]
+z <- s[6]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_point/example3.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example4, echo=F}
+y <- s[1]
+z <- s[8]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_point/example4.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example5, echo=F}
+z <- s[11]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_point/example5.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example6, echo=F}
+y <- s[15]
+z <- s[16]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_point/example6.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example7, echo=F}
+y <- s[15]
+z <- s[17]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_point/example7.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example8, echo=F}
+y <- s[15]
+z <- s[18]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_point/example8.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example9, echo=F}
+z <- s[24:25]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_point/example9.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example10, echo=F}
+z_0 <- s[30]
+z <- s[31:33]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_point/example10.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example11, echo=F}
+z_0 <- s[30]
+z <- s[34:37]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_point/example11.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example12, echo=F}
+z_0 <- s[41]
+z <- s[42:43]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_point/example12.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example13, echo=F}
+z_0 <- s[41]
+z <- s[44:45]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_point/example10.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+
+
+

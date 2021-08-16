@@ -1,0 +1,169 @@
+---
+title: "geom_abline"
+output: html_document
+---
+
+Add reference lines to a plot, either horizontal, vertical, or diagonal and then convert them with ggplotly.
+
+```{r setup, include=FALSE}
+library(rvest);library(xml2);library(httr)
+library(ggplot2)
+
+knitr::opts_chunk$set(
+  class.output  = "bg-light"
+)
+```
+
+```{r, include=FALSE}
+url <- "https://ggplot2.tidyverse.org/reference/geom_abline.html"
+uastring <- "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+session <- html_session(url, user_agent(uastring))
+s <- html_text(html_nodes(session, xpath = "//*[@class='input']"))
+s <- unlist(strsplit(s, split = '\n', fixed = TRUE))
+```
+
+```{r example1, echo=F}
+y <- s[1]
+z <- s[4]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_abline/example1.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example2, echo=F}
+y <- s[1]
+z <- s[5]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_abline/example2.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example3, echo=F}
+y <- s[1]
+z <- s[6]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_abline/example3.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example4, echo=F}
+y <- s[1]
+z <- s[8]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_abline/example4.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example5, echo=F}
+y <- s[1]
+z <- s[9]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_abline/example5.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example6, echo=F}
+y <- s[1]
+z_0 <- s[12]
+z <- s[13]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_abline/example6.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example7, echo=F}
+y <- s[1]
+z <- s[15]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_abline/example7.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example8, echo=F}
+y <- s[18:20]
+z_0 <- s[22]
+z <- s[23]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_abline/example8.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example9, echo=F}
+z_0 <- s[22]
+z <- s[26:29]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse='\n'))
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_abline/example9.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```

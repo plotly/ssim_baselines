@@ -1,0 +1,158 @@
+---
+title: "geom_segment"
+output: html_document
+---
+
+Draws a straight line between points in the chart and then convert them with ggplotly
+
+```{r setup, include=FALSE}
+library(rvest);library(xml2);library(httr)
+library(ggplot2)
+
+knitr::opts_chunk$set(
+  class.output  = "bg-light"
+)
+```
+
+```{r, include=FALSE}
+url <- "https://ggplot2.tidyverse.org/reference/geom_segment.html"
+uastring <- "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+session <- html_session(url, user_agent(uastring))
+s <- html_text(html_nodes(session, xpath = "//*[@class='input']"))
+s <- unlist(strsplit(s, split = '\n', fixed = TRUE))
+```
+
+```{r example1, echo=F}
+z_0 <- s[1:2]
+y <-s[4]
+z <- s[5:7]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <-", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = c(z_0,y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_00,y,z_1))
+write(c(z_00,y,z_1), "./geom_segment/example1.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example2, echo=F}
+z_0 <- s[1:2]
+y <-s[4]
+z <- s[9]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_00,y,z_1))
+write(c(z_00,y,z_1), "./geom_segment/example2.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example3, echo=F}
+z_0 <- s[1:2]
+y <-s[4]
+z <- s[10]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_00,y,z_1))
+write(c(z_00,y,z_1), "./geom_segment/example3.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example4, echo=F}
+z_0 <- s[1:2]
+y <-s[4]
+z <- s[11:15]
+z_00 <- paste(z_0, collapse = '\n')
+z_1 <- paste("p <-", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = c(z_0,y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_00,y,z_1))
+write(c(z_00,y,z_1), "./geom_segment/example4.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example5, echo=F}
+z <- s[17:20]
+z_1 <- paste("p <-", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_segment/example5.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example6, echo=F}
+y <-s[23:28]
+z <- s[29:35]
+z_1 <- paste("p <-", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_segment/example6.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example7, echo=F}
+y <-s[38:39]
+z <- s[40]
+z_1 <- paste("p <-", "  \n", z)
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_segment/example7.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example8, echo=F}
+y <-s[38:39]
+z <- s[42:43]
+z_1 <- paste("p <-", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = c(y,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_1))
+write(c(y,z_1), "./geom_segment/example8.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```

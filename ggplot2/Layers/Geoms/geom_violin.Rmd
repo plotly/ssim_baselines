@@ -1,0 +1,245 @@
+---
+title: "geom_violin"
+output: html_document
+---
+
+Creates compact display of a continuous distribution and then convert them with ggplotly.
+
+```{r setup, include=FALSE}
+library(rvest);library(xml2);library(httr)
+library(ggplot2); library(ggplot2movies)
+
+knitr::opts_chunk$set(
+  class.output  = "bg-light"
+)
+```
+
+```{r, include=FALSE}
+url <- "https://ggplot2.tidyverse.org/reference/geom_violin.html"
+uastring <- "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+session <- html_session(url, user_agent(uastring))
+s <- html_text(html_nodes(session, xpath = "//*[@class='input']"))
+s <- unlist(strsplit(s, split = '\n', fixed = TRUE))
+```
+
+```{r example1, echo=F}
+z_0 <- s[1]
+z <- s[2]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example1.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example2, echo=F}
+z <- s[5:6]
+z_1 <- paste("p <-","  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_violin/example2.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example3, echo=F}
+z_0 <- s[1]
+z <- s[9]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example3.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example4, echo=F}
+z_0 <- s[1]
+z <- s[12]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example4.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example5, echo=F}
+z_0 <- s[1]
+z <- s[15]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example5.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example6, echo=F}
+z_0 <- s[1]
+z <- s[18]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example6.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example7, echo=F}
+z_0 <- s[1]
+z <- s[21]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example7.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example8, echo=F}
+z_0 <- s[1]
+z <- s[26]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example8.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example9, echo=F}
+z_0 <- s[1]
+z <- s[27]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example9.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example10, echo=F}
+z_0 <- s[1]
+z <- s[28]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example10.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example11, echo=F}
+z_0 <- s[1]
+z <- s[29]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example11.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example12, echo=F}
+z_0 <- s[1]
+z <- s[32]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example12.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example13, echo=F}
+z_0 <- s[1]
+z <- s[35]
+z_1 <- paste("p <-", z)
+p <- eval(parse(text = c(z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(z_0,z_1))
+write(c(z_0,z_1), "./geom_violin/example13.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example14, echo=F}
+z <- s[38:60]
+z_1 <- paste("p <-","  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = z))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(z_1)
+write(z_1, "./geom_violin/example14.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```

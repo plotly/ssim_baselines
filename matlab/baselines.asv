@@ -1,0 +1,17 @@
+files = dir;
+dir_flags = [files.isdir];
+folders = files(dir_flags);
+
+for folder = folders'
+    fn = folder.name;
+    scripts = dir(fn);
+    for script = scripts'
+        path = strcat(fn, '/', script.name);
+        if contains(path, '.m')
+            disp(path);
+            run(path);
+            f = fig2plotly(gcf, 'open', false, 'strip', true)
+            write_image(f,'png', replace(path'.m', 
+        end
+    end
+end

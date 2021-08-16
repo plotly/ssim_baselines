@@ -1,0 +1,91 @@
+---
+title: "geom_ribbon"
+output: html_document
+---
+
+For each x value, it displays a y interval defined by ymin and ymax  and then convert them with ggplotly
+
+```{r setup, include=FALSE}
+library(rvest);library(xml2);library(httr)
+library(ggplot2)
+
+knitr::opts_chunk$set(
+  class.output  = "bg-light"
+)
+```
+
+```{r, include=FALSE}
+url <- "https://ggplot2.tidyverse.org/reference/geom_ribbon.html"
+uastring <- "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36"
+session <- html_session(url, user_agent(uastring))
+s <- html_text(html_nodes(session, xpath = "//*[@class='input']"))
+s <- unlist(strsplit(s, split = '\n', fixed = TRUE))
+```
+
+```{r example1, echo=F}
+y <- s[2]
+z_0 <- s[3]
+z <- s[5]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_ribbon/example1.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example2, echo=F}
+y <- s[2]
+z_0 <- s[3]
+z <- s[6]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_ribbon/example2.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example3, echo=F}
+y <- s[2]
+z_0 <- s[3]
+z <- s[10]
+z_1 <- paste("p <- ", z)
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_ribbon/example3.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
+
+```{r example4, echo=F}
+y <- s[2]
+z_0 <- s[3]
+z <- s[13:15]
+z_1 <- paste("p <- ", "  \n", paste(z, collapse = '\n'))
+p <- eval(parse(text = c(y,z_0,z)))
+```
+
+```{r, echo=F, comment=NA}
+writeLines(c(y,z_0,z_1))
+write(c(y,z_0,z_1), "./geom_ribbon/example4.R")
+```
+
+```{r}
+plotly::ggplotly(p)
+```
