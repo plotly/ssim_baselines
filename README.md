@@ -8,6 +8,7 @@ This program takes a directory containing sub-directories with image pairs, and 
 2. Numpy
 3. Scikit-image
 4. PIL
+5. Pandas
 
 ## How to run:
 to execute this program, you can execute following command from terminal:
