@@ -1,0 +1,712 @@
+Pair,SSIM
+
+ggplot2\Themes\theme_grey\example16,0.00012011689924176655
+
+ggplot2\Themes\theme_grey\example8,0.00012074611789695111
+
+ggplot2\Scales\scale_linetype\example3,0.00015089031154659236
+
+ggplot2\Themes\theme_grey\example6,0.0006029794070340678
+
+ggplot2\Scales\scale_shape\example6,0.0006031938251770452
+
+ggplot2\Themes\theme_grey\example14,0.0007778788129900209
+
+ggplot2\Scales\scale_discrete\example3,0.4566834265483143
+
+ggplot2\Scales\scale_discrete\example4,0.4626447615972086
+
+ggplot2\Scales\scale_discrete\example2,0.4648655289996908
+
+ggplot2\Facetting\facet_grid\example7,0.6251072623436982
+
+ggplot2\Facetting\facet_grid\example6,0.6367440748205345
+
+ggplot2\Aesthetics\aes_group_order\example13,0.6483872028200225
+
+ggplot2\Aesthetics\aes_group_order\example14,0.6483872028200225
+
+ggplot2\Aesthetics\aes_group_order\example9,0.6713697752020508
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example14,0.6714781216638238
+
+ggplot2\Scales\expansion\example3,0.6866809603745678
+
+ggplot2\Themes\theme_grey\example11,0.6948970414825965
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example13,0.6950318500728686
+
+ggplot2\Facetting\facet_grid\example8,0.69647837976372
+
+ggplot2\Facetting\facet_grid\example3,0.7088749995695975
+
+ggplot2\Aesthetics\aes_group_order\example7,0.7260805638622991
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example4,0.7260805638622991
+
+ggplot2\Scales\scale_linetype\example2,0.7260805638622991
+
+ggplot2\Facetting\facet_grid\example9,0.7294951186572064
+
+ggplot2\Themes\theme_grey\example10,0.7494072382468838
+
+ggplot2\Facetting\facet_wrap\example4,0.7573934950539855
+
+ggplot2\Facetting\facet_wrap\example8,0.7578904076617609
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example15,0.7587592185055781
+
+ggplot2\Facetting\facet_wrap\example3,0.7628917952809151
+
+ggplot2\Themes\theme_grey\example13,0.76383268803516
+
+ggplot2\Facetting\facet_wrap\example7,0.7677032329896503
+
+ggplot2\Scales\scale_linetype\example1,0.7709876456054833
+
+ggplot2\Scales\expansion\example2,0.7726077459953365
+
+ggplot2\Facetting\facet_wrap\example2,0.7761741907432006
+
+ggplot2\Coordinate systems\coord_cartesian\example6,0.7772990200729478
+
+ggplot2\Facetting\facet_grid\example4,0.7787805190295695
+
+ggplot2\Facetting\facet_grid\example2,0.779436278983785
+
+ggplot2\Themes\theme_grey\example12,0.7823075206267183
+
+ggplot2\Facetting\facet_grid\example1,0.7844850426937229
+
+ggplot2\Scales\scale_viridis\example7,0.787276194327778
+
+ggplot2\Facetting\facet_wrap\example6,0.7892526672936077
+
+ggplot2\Scales\scale_viridis\example8,0.7923049806335065
+
+ggplot2\Facetting\facet_wrap\example1,0.7983977260561199
+
+ggplot2\Guides axes and legends\guide_axis\example1,0.7990907265857089
+
+ggplot2\Guides axes and legends\guide_axis\example2,0.8010116018067985
+
+ggplot2\Guides axes and legends\guide_axis\example3,0.8085041789658305
+
+ggplot2\Themes\theme_grey\example9,0.8086334747352414
+
+ggplot2\Scales\scale_viridis\example2,0.8130838580989445
+
+ggplot2\Scales\scale_viridis\example4,0.8155575248648373
+
+ggplot2\Scales\scale_viridis\example3,0.8170292349472518
+
+ggplot2\Scales\scale_viridis\example6,0.8198807345668774
+
+ggplot2\Scales\scale_identity\example1,0.8200332168563945
+
+ggplot2\Scales\scale_viridis\example5,0.8210902639668994
+
+ggplot2\Scales\scale_size\example3,0.8214918357167262
+
+ggplot2\Scales\scale_date\example3,0.8265733232951823
+
+ggplot2\Aesthetics\aes_group_order\example12,0.8346609621277948
+
+ggplot2\Plot basics\qplot\example4,0.8369286835610024
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example18,0.8371419076570943
+
+ggplot2\Coordinate systems\coord_flip\example1,0.8373259385167898
+
+ggplot2\Guides axes and legends\guide_colourbar\example14,0.8396940093164272
+
+ggplot2\Facetting\facet_grid\example5,0.8414184812186034
+
+ggplot2\Themes\theme_grey\example3,0.8436025698294453
+
+ggplot2\Scales\scale_size\example4,0.84362329372935
+
+ggplot2\Plot basics\qplot\example13,0.8442094032049638
+
+ggplot2\Facetting\vars\example3,0.8457181232158021
+
+ggplot2\Scales\scale_date\example2,0.8469086337133791
+
+ggplot2\Coordinate systems\coord_cartesian\example8,0.8469687696200263
+
+ggplot2\Facetting\vars\example1,0.8478265194278165
+
+ggplot2\Scales\scale_size\example2,0.8489150153870665
+
+ggplot2\Themes\theme\example24,0.850705902207375
+
+ggplot2\Guides axes and legends\guide_colourbar\example12,0.851574789791829
+
+ggplot2\Guides axes and legends\guide_colourbar\example13,0.851574789791829
+
+ggplot2\Scales\scale_size\example1,0.8520646923858377
+
+ggplot2\Scales\scale_size\example5,0.8522545472069493
+
+ggplot2\Themes\theme\example26,0.8544597531352383
+
+ggplot2\Themes\theme_get\example4,0.856863404033611
+
+ggplot2\Scales\scale_date\example1,0.8576842403335617
+
+ggplot2\Themes\theme_grey\example2,0.859272573124492
+
+ggplot2\Themes\theme\example23,0.8592920066091944
+
+ggplot2\Guides axes and legends\guide_colourbar\example11,0.8594156531730163
+
+ggplot2\Themes\theme\example25,0.8594330995010804
+
+ggplot2\Aesthetics\aes_position\example8,0.8595124880083623
+
+ggplot2\Themes\theme\example6,0.8602045623797202
+
+ggplot2\Scales\scale_gradient\example6,0.860595196788438
+
+ggplot2\Scales\scale_hue\example1,0.8614741409427012
+
+ggplot2\Facetting\vars\example4,0.8622129263349998
+
+ggplot2\Facetting\vars\example5,0.8622129263349998
+
+ggplot2\Guides axes and legends\guides\example10,0.8632919001747422
+
+ggplot2\Scales\scale_viridis\example11,0.8659036260210771
+
+ggplot2\Scales\scale_brewer\example1,0.8666164606855761
+
+ggplot2\Themes\theme_get\example3,0.8669078554187616
+
+ggplot2\Scales\scale_brewer\example5,0.8674772750331413
+
+ggplot2\Themes\theme_grey\example15,0.8678835238535264
+
+ggplot2\Scales\scale_hue\example7,0.8684551419034705
+
+ggplot2\Scales\scale_hue\example4,0.8696561022575214
+
+ggplot2\Scales\scale_hue\example10,0.869972396476901
+
+ggplot2\Scales\scale_size\example7,0.8701365202006094
+
+ggplot2\Scales\scale_brewer\example8,0.8702589783124507
+
+ggplot2\Scales\scale_brewer\example6,0.8718399917814574
+
+ggplot2\Scales\scale_hue\example5,0.8728618489884967
+
+ggplot2\Scales\scale_colour_continuous\example6,0.8740490216331606
+
+ggplot2\Scales\scale_viridis\example12,0.8740490216331606
+
+ggplot2\Scales\lims\example8,0.8740997074419127
+
+ggplot2\Aesthetics\aes_group_order\example8,0.8743053056789306
+
+ggplot2\Scales\scale_colour_discrete\example1,0.8750257530413036
+
+ggplot2\Scales\scale_colour_discrete\example2,0.8750257530413036
+
+ggplot2\Scales\scale_colour_continuous\example3,0.8752757099876335
+
+ggplot2\Scales\scale_colour_continuous\example5,0.8752757099876335
+
+ggplot2\Scales\scale_viridis\example10,0.8752757099876335
+
+ggplot2\Themes\theme_grey\example5,0.8757614063275295
+
+ggplot2\Scales\scale_discrete\example9,0.8764715197478857
+
+ggplot2\Scales\scale_discrete\example8,0.877455284674085
+
+ggplot2\Scales\scale_discrete\example10,0.8774638829469019
+
+ggplot2\Themes\theme_grey\example4,0.8789488842984127
+
+ggplot2\Scales\scale_hue\example14,0.8796131473332887
+
+ggplot2\Scales\scale_viridis\example1,0.8796356303612844
+
+ggplot2\Scales\scale_hue\example12,0.8797485458609015
+
+ggplot2\Scales\scale_hue\example11,0.8798630300683166
+
+ggplot2\Scales\scale_discrete\example11,0.8804873411049637
+
+ggplot2\Scales\lims\example6,0.8805802839989146
+
+ggplot2\Scales\scale_brewer\example11,0.8812375208765149
+
+ggplot2\Scales\scale_hue\example9,0.882154981273755
+
+ggplot2\Plot basics\gg-add\example1,0.8826229246972711
+
+ggplot2\Scales\scale_hue\example3,0.8828845210486629
+
+ggplot2\Scales\scale_brewer\example3,0.8829205631794161
+
+ggplot2\Coordinate systems\coord_flip\example4,0.8839478799655677
+
+ggplot2\Scales\scale_hue\example13,0.883998013710536
+
+ggplot2\Scales\scale_binned\example1,0.8842713986765887
+
+ggplot2\Guides axes and legends\guide_legend\example2,0.8842913284811452
+
+ggplot2\Scales\scale_brewer\example10,0.8847301253338493
+
+ggplot2\Plot basics\qplot\example11,0.8851911984916593
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example11,0.8853987944140026
+
+ggplot2\Scales\scale_hue\example2,0.8856343475229014
+
+ggplot2\Plot basics\qplot\example15,0.8866619800282142
+
+ggplot2\Guides axes and legends\guide_colourbar\example5,0.8871327436868333
+
+ggplot2\Scales\scale_hue\example15,0.8873789610177207
+
+ggplot2\Scales\scale_brewer\example12,0.8874610231590997
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example12,0.8877657861948994
+
+ggplot2\Guides axes and legends\guide_colourbar\example4,0.8882565469335174
+
+ggplot2\Guides axes and legends\guide_legend\example5,0.8885274733184497
+
+ggplot2\Scales\scale_continuous\example3,0.8892597666726152
+
+ggplot2\Scales\scale_brewer\example9,0.8900109664308365
+
+ggplot2\Scales\scale_colour_continuous\example1,0.8900109664308365
+
+ggplot2\Scales\scale_colour_continuous\example2,0.8900109664308365
+
+ggplot2\Scales\scale_colour_continuous\example4,0.8900109664308365
+
+ggplot2\Scales\scale_colour_continuous\example7,0.8900109664308365
+
+ggplot2\Scales\scale_viridis\example9,0.8900109664308365
+
+ggplot2\Scales\scale_identity\example2,0.8902353906530934
+
+ggplot2\Themes\theme_grey\example1,0.8906418036234852
+
+ggplot2\Guides axes and legends\guide_coloursteps\example2,0.8907170249350049
+
+ggplot2\Themes\theme\example8,0.8907807568633537
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example8,0.8908452819674385
+
+ggplot2\Guides axes and legends\guide_coloursteps\example3,0.8908958494403275
+
+ggplot2\Scales\scale_hue\example6,0.8912788995012066
+
+ggplot2\Scales\scale_brewer\example7,0.8916346079044152
+
+ggplot2\Scales\scale_alpha\example3,0.8917261624996506
+
+ggplot2\Guides axes and legends\guide_coloursteps\example1,0.892218832401555
+
+ggplot2\Scales\scale_hue\example8,0.8923619055308958
+
+ggplot2\Plot basics\gg-add\example3,0.8924792953052695
+
+ggplot2\Guides axes and legends\guide_colourbar\example7,0.8931180437680382
+
+ggplot2\Facetting\vars\example2,0.8940207625985396
+
+ggplot2\Scales\scale_gradient\example1,0.8951573561542073
+
+ggplot2\Guides axes and legends\guide_colourbar\example9,0.8953742645877637
+
+ggplot2\Guides axes and legends\guide_colourbar\example10,0.8954626513968434
+
+ggplot2\Guides axes and legends\guide_colourbar\example1,0.8954695627535697
+
+ggplot2\Guides axes and legends\guide_colourbar\example2,0.8954695627535697
+
+ggplot2\Guides axes and legends\guide_colourbar\example3,0.8954695627535697
+
+ggplot2\Guides axes and legends\guide_colourbar\example6,0.895547291675575
+
+ggplot2\Themes\theme\example17,0.895786538885383
+
+ggplot2\Scales\scale_alpha\example2,0.8959202169284395
+
+ggplot2\Guides axes and legends\sec_axis\example5,0.8960483187883727
+
+ggplot2\Scales\scale_steps\example1,0.8963646536372432
+
+ggplot2\Scales\scale_alpha\example1,0.8965595878885723
+
+ggplot2\Themes\theme_get\example2,0.8967697957207124
+
+ggplot2\Guides axes and legends\guide_colourbar\example8,0.8968031201835598
+
+ggplot2\Guides axes and legends\guide_legend\example3,0.8973562689891067
+
+ggplot2\Guides axes and legends\guide_legend\example4,0.8978923037501252
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example16,0.8979034349139191
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example9,0.8979034349139191
+
+ggplot2\Guides axes and legends\guide_legend\example1,0.8981423049776048
+
+ggplot2\Plot basics\qplot\example14,0.8982204241084577
+
+ggplot2\Coordinate systems\coord_cartesian\example1,0.8983542260904794
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example7,0.8990908325418813
+
+ggplot2\Themes\element\example3,0.8993931268221469
+
+ggplot2\Programming with ggplot2\print.ggplot\example1,0.8997805133061018
+
+ggplot2\Programming with ggplot2\print.ggplot\example2,0.8997805133061018
+
+ggplot2\Plot basics\qplot\example3,0.8998369601797903
+
+ggplot2\Scales\scale_identity\example5,0.8998369601797903
+
+ggplot2\Scales\labs\example5,0.9004092393078101
+
+ggplot2\Guides axes and legends\guide_coloursteps\example4,0.9004172986966149
+
+ggplot2\Guides axes and legends\guide_coloursteps\example5,0.9004172986966149
+
+ggplot2\Scales\scale_gradient\example4,0.9007748331681973
+
+ggplot2\Coordinate systems\coord_cartesian\example5,0.9014036229651252
+
+ggplot2\Guides axes and legends\sec_axis\example6,0.9014165996093925
+
+ggplot2\Scales\scale_brewer\example2,0.9016152275025999
+
+ggplot2\Scales\scale_identity\example6,0.9020081884004695
+
+ggplot2\Scales\scale_identity\example4,0.9025979217784439
+
+ggplot2\Scales\scale_continuous\example14,0.9027961078104414
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example6,0.9028007039496436
+
+ggplot2\Guides axes and legends\guide_bins\example3,0.9029912965966732
+
+ggplot2\Scales\scale_hue\example16,0.9031237076802916
+
+ggplot2\Scales\scale_gradient\example5,0.9032962575787266
+
+ggplot2\Themes\theme\example5,0.9034477279562992
+
+ggplot2\Guides axes and legends\guide_bins\example4,0.9035570504029523
+
+ggplot2\Scales\scale_brewer\example4,0.903563652121184
+
+ggplot2\Guides axes and legends\guide_bins\example1,0.9035977992171585
+
+ggplot2\Scales\scale_grey\example3,0.903730839883229
+
+ggplot2\Guides axes and legends\guide_bins\example2,0.9041637154512941
+
+ggplot2\Scales\scale_gradient\example3,0.9045015657834253
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example10,0.9045234963397797
+
+ggplot2\Coordinate systems\coord_cartesian\example3,0.9045976213490495
+
+ggplot2\Themes\theme\example18,0.905258423577173
+
+ggplot2\Scales\scale_steps\example3,0.9054902666298542
+
+ggplot2\Scales\scale_continuous\example2,0.9058731944466896
+
+ggplot2\Scales\scale_continuous\example12,0.9060074824555552
+
+ggplot2\Guides axes and legends\guide_bins\example5,0.9064154587101528
+
+ggplot2\Scales\scale_continuous\example15,0.9064250717048007
+
+ggplot2\Themes\theme\example13,0.9066134958969216
+
+ggplot2\Coordinate systems\coord_flip\example3,0.906886096448031
+
+ggplot2\Coordinate systems\coord_flip\example2,0.9075031595848647
+
+ggplot2\Coordinate systems\coord_cartesian\example4,0.9077183627072319
+
+ggplot2\Scales\scale_identity\example3,0.9083209993853307
+
+ggplot2\Scales\scale_steps\example2,0.9086648307674934
+
+ggplot2\Plot basics\aes\example1,0.9088113776863905
+
+ggplot2\Plot basics\aes\example2,0.9088113776863905
+
+ggplot2\Scales\scale_continuous\example1,0.9088113776863905
+
+ggplot2\Scales\labs\example1,0.9088231803389815
+
+ggplot2\Scales\labs\example6,0.9090137331642865
+
+ggplot2\Scales\scale_continuous\example13,0.9090267338097907
+
+ggplot2\Scales\scale_gradient\example2,0.9090888589941858
+
+ggplot2\Scales\labs\example2,0.9092515702170294
+
+ggplot2\Themes\theme\example19,0.9094592351226831
+
+ggplot2\Scales\labs\example4,0.9095944082168719
+
+ggplot2\Scales\expand_limits\example4,0.9099833672441806
+
+ggplot2\Plot basics\qplot\example2,0.9100630679585825
+
+ggplot2\Scales\labs\example7,0.9100630679585825
+
+ggplot2\Scales\scale_size\example6,0.9106218038547732
+
+ggplot2\Scales\labs\example3,0.9106343463328586
+
+ggplot2\Scales\lims\example5,0.9109692237820145
+
+ggplot2\Aesthetics\aes_position\example1,0.9112600156891776
+
+ggplot2\Scales\scale_shape\example3,0.9118635750689094
+
+ggplot2\Themes\theme\example3,0.9119623634221555
+
+ggplot2\Themes\theme\example22,0.9121094286503894
+
+ggplot2\Themes\theme\example2,0.9129068927317339
+
+ggplot2\Scales\scale_continuous\example5,0.9130010284180818
+
+ggplot2\Themes\theme\example20,0.9143543477288012
+
+ggplot2\Aesthetics\aes_group_order\example3,0.9145912572710038
+
+ggplot2\Scales\scale_shape\example2,0.9150607125670256
+
+ggplot2\Themes\element\example2,0.9158137448194047
+
+ggplot2\Scales\scale_shape\example4,0.9159467108630853
+
+ggplot2\Guides axes and legends\sec_axis\example2,0.9160597411468873
+
+ggplot2\Scales\scale_hue\example18,0.9162918990549277
+
+ggplot2\Plot basics\qplot\example1,0.9163035977326404
+
+ggplot2\Plot basics\qplot\example10,0.9163035977326404
+
+ggplot2\Themes\theme_get\example1,0.9163035977326404
+
+ggplot2\Themes\theme_get\example5,0.9163035977326404
+
+ggplot2\Scales\scale_grey\example4,0.9165904199785866
+
+ggplot2\Scales\scale_hue\example17,0.9166814225035979
+
+ggplot2\Themes\theme\example14,0.9168590245482916
+
+ggplot2\Scales\scale_grey\example5,0.9168934907330848
+
+ggplot2\Plot basics\qplot\example9,0.916905993841002
+
+ggplot2\Guides axes and legends\sec_axis\example4,0.91710623135866
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example14,0.9172611375872243
+
+ggplot2\Themes\theme\example21,0.9173525056477364
+
+ggplot2\Guides axes and legends\sec_axis\example3,0.9173658920644463
+
+ggplot2\Plot basics\qplot\example5,0.9173938854755589
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example16,0.9176053129853814
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example17,0.9176874093532175
+
+ggplot2\Themes\theme\example16,0.9177039036234926
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example15,0.9177484142554001
+
+ggplot2\Plot basics\qplot\example7,0.9177587280432307
+
+ggplot2\Aesthetics\aes_position\example6,0.9179074231069642
+
+ggplot2\Aesthetics\aes_position\example7,0.9179074231069642
+
+ggplot2\Coordinate systems\coord_fixed\example2,0.9180582195622118
+
+ggplot2\Scales\scale_discrete\example1,0.9181829488597958
+
+ggplot2\Themes\theme\example9,0.9183113228111879
+
+ggplot2\Aesthetics\aes_group_order\example1,0.9184789119897845
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example5,0.9184789119897845
+
+ggplot2\Aesthetics\aes_group_order\example2,0.9188936890167908
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example6,0.9189457466966241
+
+ggplot2\Guides axes and legends\sec_axis\example1,0.9190280679096
+
+ggplot2\Scales\scale_continuous\example8,0.9192642033135512
+
+ggplot2\Scales\scale_continuous\example7,0.9197957253784242
+
+ggplot2\Coordinate systems\coord_flip\example5,0.9199173121307527
+
+ggplot2\Coordinate systems\coord_flip\example6,0.9199173121307527
+
+ggplot2\Coordinate systems\coord_map\example11,0.9199173121307527
+
+ggplot2\Guides axes and legends\guide_legend\example10,0.9210193664515398
+
+ggplot2\Plot basics\qplot\example6,0.9211902231880434
+
+ggplot2\Aesthetics\aes_position\example4,0.9218251120853918
+
+ggplot2\Themes\theme\example11,0.922309463898732
+
+ggplot2\Themes\theme\example10,0.9224072301471885
+
+ggplot2\Guides axes and legends\guide_legend\example8,0.9224144875736624
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example3,0.922458189471729
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example10,0.9224640627810125
+
+ggplot2\Themes\theme\example1,0.9224799174458272
+
+ggplot2\Aesthetics\aes_position\example5,0.9225211594567243
+
+ggplot2\Guides axes and legends\guide_legend\example11,0.9225537385561912
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example2,0.9227548845154929
+
+ggplot2\Scales\expand_limits\example2,0.9229388251143971
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example1,0.9236579054414942
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example13,0.923788097478538
+
+ggplot2\Themes\theme\example15,0.9239622512453202
+
+ggplot2\Scales\scale_manual\example6,0.9239790057895849
+
+ggplot2\Scales\scale_manual\example3,0.9240878353166256
+
+ggplot2\Scales\scale_manual\example5,0.9240878353166256
+
+ggplot2\Scales\scale_manual\example8,0.9240878520169015
+
+ggplot2\Scales\scale_grey\example2,0.9241962481440201
+
+ggplot2\Scales\expand_limits\example5,0.9248240421773528
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example9,0.9248597807315511
+
+ggplot2\Scales\scale_continuous\example9,0.9248843085475436
+
+ggplot2\Themes\theme\example12,0.9249017920336493
+
+ggplot2\Scales\scale_manual\example7,0.9250642177040206
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example3,0.9251781437518753
+
+ggplot2\Scales\scale_manual\example2,0.9252532114285592
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example8,0.9254435181427454
+
+ggplot2\Aesthetics\aes_position\example2,0.9254435181427454
+
+ggplot2\Scales\scale_manual\example1,0.9256081142572077
+
+ggplot2\Guides axes and legends\guide_legend\example9,0.925612308656142
+
+ggplot2\Scales\expansion\example1,0.9259549270594771
+
+ggplot2\Plot basics\gg-add\example2,0.92616409422116
+
+ggplot2\Plot basics\ggplot\example3,0.9261653575086898
+
+ggplot2\Plot basics\ggsave\example1,0.9261653575086898
+
+ggplot2\Scales\scale_grey\example1,0.9265099522704077
+
+ggplot2\Aesthetics\aes_linetype_size_shape\example11,0.926530116001071
+
+ggplot2\Guides axes and legends\guide_legend\example7,0.9271419393125037
+
+ggplot2\Plot basics\aes\example3,0.9282497782187193
+
+ggplot2\Plot basics\aes\example4,0.9282497782187193
+
+ggplot2\Plot basics\qplot\example12,0.9286447739262272
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example1,0.929073992283709
+
+ggplot2\Aesthetics\aes_group_order\example4,0.929073992283709
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example4,0.9291864729573558
+
+ggplot2\Themes\element\example4,0.9302820689370059
+
+ggplot2\Coordinate systems\coord_fixed\example1,0.9308516674682644
+
+ggplot2\Scales\scale_continuous\example11,0.93100916341648
+
+ggplot2\Themes\theme_grey\example7,0.9316570556640096
+
+ggplot2\Scales\expand_limits\example1,0.933042936398997
+
+ggplot2\Coordinate systems\coord_fixed\example4,0.93441451733907
+
+ggplot2\Guides axes and legends\guide_legend\example6,0.9358163083032834
+
+ggplot2\Plot basics\qplot\example8,0.9361828392236534
+
+ggplot2\Plot basics\ggplot\example1,0.9362419860005983
+
+ggplot2\Aesthetics\aes_position\example3,0.9372711379830243
+
+ggplot2\Scales\scale_continuous\example10,0.9373432316686675
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example7,0.9374126955586377
+
+ggplot2\Aesthetics\aes_group_order\example6,0.9374126955586377
+
+ggplot2\Plot basics\aes\example5,0.9380843028070699
+
+ggplot2\Aesthetics\aes_group_order\example5,0.9386949643418537
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example2,0.9420572106894214
+
+ggplot2\Scales\expand_limits\example3,0.9450240048940233
+
+ggplot2\Aesthetics\aes_colour_fill_alpha\example5,0.9451249114142295
+
+ggplot2\Coordinate systems\coord_fixed\example3,0.9480339836412486
+
+ggplot2\Scales\lims\example4,0.9489658061428526
+
+ggplot2\Plot basics\ggplot\example2,0.9503962686228937
+
+ggplot2\Themes\theme\example7,0.953014102986422
+
+ggplot2\Themes\theme\example4,0.9587164811463331
+
+ggplot2\Themes\element\example1,0.9623156949470796
+

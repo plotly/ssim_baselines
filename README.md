@@ -83,4 +83,3 @@ output
 These values are slightly **different** from the built-in Matlab implementation of SSIM
 
 2. Scikit-image has a range of [-1, 1] for pixel level SSIM. Hence the results have some negative values as well in the SSIM map. I have applied two different normalization. Absolute, where signs of negative values are changed t positives. Rescale, where ssim map is normalized in the range between [0, 1] by doing (1 + SSIM) / 2. I am not sure how Matlab internally handles it, if you have better ideas, I would be happy to implement. 
-
