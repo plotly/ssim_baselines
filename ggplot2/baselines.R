@@ -6,6 +6,8 @@ library(maps)
 library(usmap)
 library(mapproj)
 library(ggplot2movies)
+library(hexbin)
+library(stat_quantile)
 import("plotly")
 
 write_plotly_image <- function(path) {
@@ -46,17 +48,18 @@ for(folder in folders){
   subfolders = dir(folder)
   if(folder != "Layers"){
    for(sub in subfolders){
-     scripts = dir(file.path(folder,sub))
-     theme_set(theme_grey())
-     for(script in scripts){
-      r_executable = file.path(folder,sub,script)
-      write_images(r_executable)
+      scripts = dir(file.path(folder,sub))
+      theme_set(theme_grey())
+      for(script in scripts){
+        r_executable = file.path(folder,sub,script)
+        write_images(r_executable)
+      }
     }
-   }
   }
   else{
+    print(subfolders)
     for(sub in subfolders){
-      subsubfolders = dir(sub)
+      subsubfolders = dir(file.path(folder,sub))
       for(subsub in subsubfolders){
         scripts = dir(file.path(folder,sub,subsub))
         theme_set(theme_grey())
@@ -65,6 +68,6 @@ for(folder in folders){
           write_images(r_executable)
         }
       }
-    }  
+    }
   }
 }
