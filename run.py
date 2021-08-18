@@ -2,12 +2,16 @@ import os
 import argparse
 import re
 import csv
+import datetime
+from urllib import parse as urlparse
 
 import numpy as np
+from numpy.core.fromnumeric import mean
 from skimage.metrics import structural_similarity 
 from PIL import Image
-import pandas
+import pandas as pd
 
+GIT_BASE_URL = 'https://github.com/plotly/ssim_baselines/blob/main/'
 
 def save_results(path, name, ssim_map, montage):
 	'''
@@ -19,20 +23,121 @@ def save_results(path, name, ssim_map, montage):
 	ssim_map.save(os.path.join(path,name + '_ssim_map.png'))
 
 
-def write_ssim_csv_html(path, sorted_pair_ssim):
+def get_category(path):
+	'''
+	Returns category and sub-categories from a path
+	'''
+	assert len(path) > 0
+	splits = path.split(os.path.sep)
+
+	if len(splits) == 1:
+		cat = splits[0]
+		sub_cat = ""
+	elif len(splits) == 2:
+		cat = splits[1]
+		sub_cat = ""
+	elif len(splits) > 2:
+		cat = splits[1]
+		sub_cat = os.path.sep.join(splits[2:])
+	
+	return cat, sub_cat
+
+def get_category_path(path):
+	''''
+	Returns relative path of category
+	'''
+	assert len(path) > 1
+	splits = path.split(os.path.sep)
+
+	if len(splits) == 2:
+		cat_path = splits[0]
+	elif len(splits) >= 3:
+		cat_path = os.path.sep.join(splits[:2])
+
+	return cat_path
+
+
+def write_ssim_csv_html(path, sorted_ssim, save_dir):
 	''''
 	Writes a csv and html file containing ssim for each pair
 	'''
 	csv_path = os.path.join(path, 'ssim.csv')
 	html_path = os.path.join(path, 'ssim.html')
-	with open(csv_path, 'w') as f:
-		csv_writer = csv.writer(f)
-		header = ['Pair', 'SSIM']
-		csv_writer.writerow(header)
-		csv_writer.writerows(sorted_pair_ssim)
+	md_path = os.path.join(path, 'ssim.md')
+	cat_html_path = os.path.join(path, 'category_mean.html')
+	cat_md_path = os.path.join(path, 'category_mean.md')
+	cat_csv_path = os.path.join(path, 'category_mean.csv')
+	mean_ssim_path = os.path.join(path, 'mean_ssim.txt')
 	
-	ssim_csv = pandas.read_csv(csv_path)
-	ssim_csv.to_html(html_path)
+	data = pd.DataFrame(sorted_ssim,  columns=['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp'])
+	data.to_csv(csv_path, index=False)
+	
+	#modifications for html and MD
+	pairs = data.filter(['Pair'])
+
+	def make_url(val):
+		rel_url = save_dir + '/' + val + '_montage.png'
+		rel_url = rel_url.replace(os.path.sep, '/')
+		rel_url = urlparse.quote(rel_url)
+		url = GIT_BASE_URL + rel_url
+		url = url.replace(os.path.sep, '/')
+		return url
+
+	def make_clickable_html(url, val):
+		return '<a href="{}" rel="noopener noreferrer" target="_blank">{}</a>'.format(url,val)
+
+	def make_clickable_md(url, val):
+		return '[{}({})'.format(url,val)
+	
+	#html
+
+	pairs['URL'] = pairs.apply(lambda x: make_url(x['Pair']), axis=1)
+
+	data['Pair'] = pairs.apply(lambda x: make_clickable_html(x['URL'], x['Pair']), axis=1)
+	data.to_html(html_path, index=False)
+
+	#markdown
+	data['Pair'] = pairs.apply(lambda x: make_clickable_md(x['URL'], x['Pair']), axis=1)
+	data.to_markdown(md_path, index=False)
+
+	
+	## MEAN calculation
+	cat_mean = data.groupby('Category', as_index=False).mean()
+	cat_mean.columns = ['Category', 'SSIM Mean']
+	cat_mean.to_csv(cat_csv_path, index=False)
+
+	#modifications for html and MD
+	# pairs['cat_path'] = pairs.apply(lambda x: get_category_path(x['Pair']), axis=1)
+
+	# def make_clickable_cat_html(val):
+	# 	rel_url = save_dir + '/' + val
+	# 	rel_url = rel_url.replace(os.path.sep, '/')
+	# 	rel_url = urlparse.quote(rel_url)
+	# 	url = GIT_BASE_URL + rel_url
+		
+	# 	# url = urlparse.quote(url)
+	# 	return '<a href="{}" rel="noopener noreferrer" target="_blank">{}</a>'.format(url,val)
+
+	# def make_clickable_cat_md(val):
+	# 	rel_url = save_dir + '/' + val
+	# 	rel_url = rel_url.replace(os.path.sep, '/')
+	# 	rel_url = urlparse.quote(rel_url)
+	# 	url = GIT_BASE_URL + rel_url
+	# 	# url = urlparse.quote(url)
+	# 	return '[{}({})'.format(url,val)
+	
+	# #html
+	# cat_mean['Category'] = pairs.apply(lambda x: make_clickable_cat_html(x['cat_path']), axis=1)
+	cat_mean.to_html(cat_html_path, index=False)
+
+	#markdown
+	# cat_mean['Category'] = pairs.apply(lambda x: make_clickable_cat_md(x['cat_path']), axis=1)
+	cat_mean.to_markdown(cat_md_path, index=False)
+
+	ssim_mean = data['SSIM'].mean()
+	with open(mean_ssim_path, 'w') as f:
+		f.write('SSIM Mean: {}'.format(ssim_mean) )
+
 
 	print("\nCSV file write to path {}.".format(csv_path))
 	print("HTML file write to path {}.".format(html_path))
@@ -170,7 +275,13 @@ def main(args):
 
 	valid_pairs =[]
 	ssim_vals = []
-	for path in subdirs:
+	timestamps= []
+	cats = []
+	sub_cats = []
+	
+	for i, path in enumerate(subdirs):
+		if i > 10:
+			break
 		print("\nLooking into subdir {}...".format(path))
 		image_names = [img for img in os.listdir(path) if re.match(exts, img, re.IGNORECASE)]
 
@@ -178,7 +289,11 @@ def main(args):
 
 		print("Number of pairs found: {}".format(len(image_pairs)))
 
-		for pair in image_pairs:
+		cat, sub_cat = get_category(path)
+		print(cat, sub_cat, "cats")
+		for j, pair in enumerate(image_pairs):
+			if j > 1:
+				break
 			images = [Image.open(os.path.join(path, x)) for x in pair]
 
 			montage = get_montage(images)
@@ -186,26 +301,30 @@ def main(args):
 
 			if ssim_val is not None and ssim_map is not None:
 				pair_prefix = pair[0].rsplit('_')[0]
-				save_results(os.path.join(args.save_dir, path), pair_prefix, ssim_map, montage)
+				# save_results(os.path.join(args.save_dir, path), pair_prefix, ssim_map, montage)
 				
 				valid_pairs.append(os.path.join(path, pair_prefix))
 				ssim_vals.append(ssim_val)
-				
+				dt = datetime.datetime.now()
+				timestamps.append(dt.strftime('%Y-%m-%d %H:%M:%S'))
+				cats.append(cat)
+				sub_cats.append(sub_cat)
+
 				print("Pair: {}, SSIM: {}".format(pair, ssim_val))
 			else:
 				print("Aspect ratio does not match for images at path \"{}\" for pair \"{}\". Use --force argumnet to calcualte ssim anyways". format(path, pair))
 		print("Subdir {} done!".format(path))
 	
 	# Write CSV and HTML Table
-	sorted_pair_ssim = [[pair, ssim] for ssim, pair in sorted(zip(ssim_vals, valid_pairs))]
-	write_ssim_csv_html(args.save_dir, sorted_pair_ssim)
+	sorted_ssim = [(pair, ssim, cat, sub_cat, timestamp) for ssim, pair, timestamp, cat, sub_cat in sorted(zip(ssim_vals, valid_pairs, timestamps, cats, sub_cats))]
+	write_ssim_csv_html(args.save_dir, sorted_ssim, args.save_dir)
 
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='SSIM Generator')
 
-	parser.add_argument("--root-dir", default='data', type=str,
-						help="Path for root directory containing all the sub-dirs. Default: ./data")
+	parser.add_argument("--root-dir", default='ggplot2', type=str,
+						help="Path for root directory containing all the sub-dirs. Default: ggplot2")
 	parser.add_argument("--save-dir", default='output', type=str,
 						help="Path where montage and ssim maps are saved")
 	parser.add_argument('--img-types', default=['png', 'jpg'], nargs='+',
@@ -221,3 +340,6 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 
 	main(args)
+	# path = 'home'
+	# print(get_category(path))
+	# print(get_category(path+'x.png'))
