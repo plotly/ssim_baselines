@@ -70,7 +70,7 @@ def write_ssim_csv_html(path, sorted_ssim, save_dir):
 	mean_ssim_path = os.path.join(path, 'mean_ssim.txt')
 	
 	data = pd.DataFrame(sorted_ssim,  columns=['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp'])
-	data.to_csv(csv_path, index=False)
+	
 	
 	#modifications for html and MD
 	pairs = data.filter(['Pair'])
@@ -84,15 +84,23 @@ def write_ssim_csv_html(path, sorted_ssim, save_dir):
 		return url
 
 	def make_clickable_html(url, val):
+		val = val.replace(os.path.sep, '/')
 		return '<a href="{}" rel="noopener noreferrer" target="_blank">{}</a>'.format(url,val)
 
 	def make_clickable_md(url, val):
-		return '[{}]({})'.format(url,val)
-	
-	#html
+		val = val.replace(os.path.sep, '/')
+		return '[{}]({})'.format(val,url)
+
+	def make_clickable_csv(url):
+		return '{}'.format(url)
 
 	pairs['URL'] = pairs.apply(lambda x: make_url(x['Pair']), axis=1)
 
+	#csv
+	data['Pair'] = pairs.apply(lambda x: make_clickable_csv(x['URL']), axis=1)
+	data.to_csv(csv_path, index=False)
+	
+	#html
 	data['Pair'] = pairs.apply(lambda x: make_clickable_html(x['URL'], x['Pair']), axis=1)
 	data.to_html(html_path, index=False)
 
