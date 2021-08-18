@@ -1,0 +1,2 @@
+Z = peaks;
+contourf(Z);
