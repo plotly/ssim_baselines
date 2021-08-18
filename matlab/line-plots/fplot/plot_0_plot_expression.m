@@ -1,0 +1,1 @@
+fplot(@(x) sin(x));
