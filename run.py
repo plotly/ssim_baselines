@@ -87,7 +87,7 @@ def write_ssim_csv_html(path, sorted_ssim, save_dir):
 		return '<a href="{}" rel="noopener noreferrer" target="_blank">{}</a>'.format(url,val)
 
 	def make_clickable_md(url, val):
-		return '[{}({})'.format(url,val)
+		return '[{}]({})'.format(url,val)
 	
 	#html
 
