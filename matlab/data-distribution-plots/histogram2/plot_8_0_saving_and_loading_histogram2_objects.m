@@ -1,0 +1,3 @@
+histogram2(randn(100,1),randn(100,1));
+savefig('histogram2.fig');
+close gcf;
