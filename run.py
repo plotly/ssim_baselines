@@ -145,6 +145,8 @@ def write_ssim_csv_html(path, sorted_ssim, save_dir):
 	## MEAN calculation
 	cat_mean = data.groupby('Category', as_index=False).mean()
 	cat_mean.columns = ['Category', 'SSIM Mean']
+	print("\n\nCategory-wise SSIM mean:")
+	print(cat_mean)
 	cat_mean.to_csv(cat_csv_path, index=False)
 
 	#modifications for html and MD
@@ -176,6 +178,7 @@ def write_ssim_csv_html(path, sorted_ssim, save_dir):
 	cat_mean.to_markdown(cat_md_path, index=False)
 
 	ssim_mean = data['SSIM'].mean()
+	print("\n\nMean SSIM: {}".format(ssim_mean))
 	with open(mean_ssim_path, 'w') as f:
 		f.write('SSIM Mean: {}'.format(ssim_mean) )
 
@@ -321,8 +324,7 @@ def main(args):
 	sub_cats = []
 	
 	for i, path in enumerate(subdirs):
-		if i > 3:
-			break
+
 		print("\nLooking into subdir {}...".format(path))
 		image_names = [img for img in os.listdir(path) if re.match(exts, img, re.IGNORECASE)]
 
@@ -332,8 +334,6 @@ def main(args):
 
 		cat, sub_cat = get_category(path)
 		for j, pair in enumerate(image_pairs):
-			if j > 1:
-				break
 			images = [Image.open(os.path.join(path, x)) for x in pair]
 
 			montage = get_montage(images)
