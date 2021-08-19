@@ -1,0 +1,2 @@
+B = bucky;
+spy(B);
