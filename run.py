@@ -275,7 +275,7 @@ def get_montage(images):
 	
 	return montage
 
-def get_image_pairs(images, first_suffix='plotly', second_suffix='ggplot2'):
+def get_image_pairs(images, first_suffix='plotly', second_suffix='ggplot2', error_str='_ERROR_CRASH_'):
 	''''
 	Returns a list of tuple of all possible pair of images
 	'''
@@ -285,20 +285,42 @@ def get_image_pairs(images, first_suffix='plotly', second_suffix='ggplot2'):
 	for img in images:
 		if img not in img_set:
 			continue
-		img_name, ext = os.path.splitext(img)
 		
+		img_name, ext = os.path.splitext(img)
+		if img_name.endswith(error_str):
+			crash = True
+			# img_name_err = img_name
+			img_name = img_name.replace(error_str, '')
+		else:
+			crash = False
+
 		prefix_suffix_list = img_name.rsplit('_', 1)
 		
 		if len(prefix_suffix_list) == 2:
 			other_img = None
 			prefix, suffix  = prefix_suffix_list[0], prefix_suffix_list[1]
+
 			if suffix == first_suffix:
 				other_img = prefix + '_' + second_suffix + ext
-			elif suffix == second_suffix:
-				other_img = prefix + '_' + first_suffix + ext
-
-			if other_img is not None and other_img in img_set:
-				img_pairs.append((img, other_img))
+				other_img_err = prefix + '_' + second_suffix + error_str + ext
+			# elif suffix == second_suffix:
+			# 	other_img = prefix + '_' + first_suffix + ext
+			# 	other_img_err = prefix + '_' + first_suffix  + error_str + ext
+			else:
+				#ensure that first suffix (plotly) is reference image
+				continue
+				
+			
+			if other_img is not None or other_img_err is not None:
+				# if crash:
+				# 	img = img_name_err
+				if other_img is not None and  other_img in img_set:
+					pass
+				elif other_img_err is not None and  other_img_err in img_set:
+					other_img = other_img_err
+					crash = True
+				
+				img_pairs.append((img, other_img, crash))
 				img_set.remove(img)
 				img_set.remove(other_img)
 	
@@ -328,28 +350,44 @@ def main(args):
 		print("\nLooking into subdir {}...".format(path))
 		image_names = [img for img in os.listdir(path) if re.match(exts, img, re.IGNORECASE)]
 
-		image_pairs = get_image_pairs(image_names, args.suffix_list[0], args.suffix_list[1])
+		image_pairs = get_image_pairs(image_names, args.suffix_list[0], args.suffix_list[1], args.error_str)
 
 		print("Number of pairs found: {}".format(len(image_pairs)))
 
 		cat, sub_cat = get_category(path)
 		for j, pair in enumerate(image_pairs):
+			crash = pair[2]
+			pair = pair[:2]
 			images = [Image.open(os.path.join(path, x)) for x in pair]
 
 			montage = get_montage(images)
-			ssim_val, ssim_map = get_ssim(images[0], images[1], args.norm, args.force_resize)
+			if not crash:
+				ssim_val, ssim_map = get_ssim(images[0], images[1], args.norm, args.force_resize)
+			else:
+				ssim_val = -1
+				ssim_map = montage.copy()
 
 			if ssim_val is not None and ssim_map is not None:
-				pair_prefix = pair[0].rsplit('_')[0]
-				save_results(os.path.join(args.save_dir, path), pair_prefix, ssim_map, montage, ssim_val)
+				if not crash:
+					pair_prefix = pair[0].rsplit('_', 1)[0]
+					
+					valid_pairs.append(os.path.join(path, pair_prefix))
+					ssim_vals.append(ssim_val)
+					dt = datetime.datetime.now()
+					timestamps.append(dt.strftime('%Y-%m-%d %H:%M:%S'))
+					cats.append(cat)
+					sub_cats.append(sub_cat)
 				
-				valid_pairs.append(os.path.join(path, pair_prefix))
-				ssim_vals.append(ssim_val)
-				dt = datetime.datetime.now()
-				timestamps.append(dt.strftime('%Y-%m-%d %H:%M:%S'))
-				cats.append(cat)
-				sub_cats.append(sub_cat)
-
+				else:
+					pair_prefix = os.path.splitext(pair[0])[0]
+					
+					#n order to remove frist suffix 
+					if pair_prefix.endswith(args.error_str):
+						pair_prefix = pair_prefix.replace(args.error_str, '')
+					
+					pair_prefix = pair_prefix.rsplit('_', 1)[0] + args.error_str
+					
+				save_results(os.path.join(args.save_dir, path), pair_prefix, ssim_map, montage, ssim_val)
 				print("Pair: {}, SSIM: {}".format(pair, ssim_val))
 			else:
 				print("Aspect ratio does not match for images at path \"{}\" for pair \"{}\". Use --force argumnet to calcualte ssim anyways". format(path, pair))
@@ -357,7 +395,12 @@ def main(args):
 	
 	# Write CSV and HTML Table
 	sorted_ssim = [(pair, ssim, cat, sub_cat, timestamp) for ssim, pair, timestamp, cat, sub_cat in sorted(zip(ssim_vals, valid_pairs, timestamps, cats, sub_cats))]
-	write_ssim_csv_html(args.save_dir, sorted_ssim, args.save_dir)
+
+	if len(sorted_ssim) > 0:
+		write_ssim_csv_html(args.save_dir, sorted_ssim, args.save_dir)
+	else:
+		with open(os.path.join(args.save_dir, 'failure.txt'), 'w') as f:
+			f.write("There were no valid image pairs found")
 
 
 if __name__ == '__main__':
@@ -365,7 +408,7 @@ if __name__ == '__main__':
 
 	parser.add_argument("--root-dir", default='ggplot2', type=str,
 						help="Path for root directory containing all the sub-dirs. Default: ggplot2")
-	parser.add_argument("--save-dir", default='output', type=str,
+	parser.add_argument("--save-dir", default='out_ggplot2', type=str,
 						help="Path where montage and ssim maps are saved")
 	parser.add_argument('--img-types', default=['png', 'jpg'], nargs='+',
 							help="List of extensions for images. Default: ['png', 'jpg']",
@@ -378,6 +421,8 @@ if __name__ == '__main__':
 							'abs will take absolute values, while scale will resecale the range between [0,1]')
 	parser.add_argument('--suffix-list', default=['plotly', 'ggplot2'], nargs='+',
 							help="List of two suffix to find image pairs. Default: ['plotly', 'ggplot2']")
+	parser.add_argument("--error-str", default='_ERROR_CRASH_', type=str,
+						help="Suffix at the end of filename in case of error. Default: _ERROR_CRASH_")
 	
 	
 	args = parser.parse_args()
