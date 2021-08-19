@@ -3,6 +3,7 @@ import argparse
 import re
 import datetime
 from urllib import parse as urlparse
+from PIL.ImageChops import offset
 from matplotlib import colors
 
 import numpy as np
@@ -20,23 +21,35 @@ def save_results(path, name, ssim_map, montage, ssim_val):
 	'''
 	os.makedirs(path, exist_ok=True)
 
-	font = ImageFont.truetype('arial', size=26)
+	#Make border on top for title
+	def make_top_border(img, border_height):
+		width, height = img.size
+		new_width, new_height = width, height + border_height
+		format = img.mode
+		color = 255 if format == 'L' else (255,255,255)
+		img_new = Image.new(format, (new_width, new_height), color=color)
+		img_new.paste(img, (0,border_height))
+		return img_new
 
-	def get_text_pos(img, text, font, margin=10):
+	def get_text_pos(img, text, font, margin=5):
 		width, height = img.size
 		f_w, fh = font.getsize(text)
 
-		x = int(width/2 - f_w/2)
-		return (x, margin)
+		new_img = make_top_border(img, 2*margin + fh)
 
+		x = int(width/2 - f_w/2)
+		return (x, margin), new_img
+
+	font = ImageFont.truetype('arial', size=26)
 	title = 'SSIM: {:.4f}'.format(ssim_val)
 
+	
+	text_pos, montage = get_text_pos(montage, title, font)
 	montage_d = ImageDraw.Draw(montage)
-	text_pos = get_text_pos(montage, title, font)
 	montage_d.text( text_pos, title, fill='black', font=font)
 
+	text_pos, ssim_map = get_text_pos(ssim_map, title, font)
 	ssim_d = ImageDraw.Draw(ssim_map)
-	text_pos = get_text_pos(ssim_map, title, font)
 	ssim_d.text(text_pos, title, fill='black', font=font)
 	
 	montage.save(os.path.join(path, name + '_montage.png'))
@@ -308,6 +321,8 @@ def main(args):
 	sub_cats = []
 	
 	for i, path in enumerate(subdirs):
+		if i > 3:
+			break
 		print("\nLooking into subdir {}...".format(path))
 		image_names = [img for img in os.listdir(path) if re.match(exts, img, re.IGNORECASE)]
 
@@ -317,6 +332,8 @@ def main(args):
 
 		cat, sub_cat = get_category(path)
 		for j, pair in enumerate(image_pairs):
+			if j > 1:
+				break
 			images = [Image.open(os.path.join(path, x)) for x in pair]
 
 			montage = get_montage(images)
@@ -360,8 +377,7 @@ if __name__ == '__main__':
 						help='How to normalize negative vlaues in the ssim map.'\
 							'abs will take absolute values, while scale will resecale the range between [0,1]')
 	parser.add_argument('--suffix-list', default=['plotly', 'ggplot2'], nargs='+',
-							help="List of two suffix to find image pairs. Default: ['plotly', 'ggplot2']",
-							choices=['jpg','jpeg','png','tiff','bmp','gif'])
+							help="List of two suffix to find image pairs. Default: ['plotly', 'ggplot2']")
 	
 	
 	args = parser.parse_args()

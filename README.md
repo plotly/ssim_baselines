@@ -24,12 +24,13 @@ python run.py --root-dir ggplot2 --save-dir out_ggplot2
 
 ### Arguments
 
-1. --roor-dir (default: data): Path to root directory containing all the sub-folders with image pairs.
-2. --save-dir (default: output): Path where to save the output images and results
-3. --img-types (default: ['png', 'jpg']): A lsit of image types (extensions) to look for in each sub-direcotry. You can choose any number of values from ['jpg','jpeg','png','tiff','bmp','gif']
+1. --roor-dir (default: ggplot2): Path to root directory containing all the sub-folders with image pairs.
+2. --save-dir (default: out_ggplot2): Path where to save the output images and results
+3. --img-types (default: ['png', 'jpg']): A lsit of image types (extensions) to look for in each sub-direcotry. You can choose any number of values from ['jpg', 'jpeg', 'png', 'tiff', 'bmp', 'gif']
 4. --force-resize (default: False): SBy default, the program ignores the image pairs who does not have matching aspect ratios, as resizing such images will distort the images. Set this argument if you want to force resize all images irrespective of their aspect ratio.
 5. --norm (default: 'abs'): How to normalize negative vlaues in the ssim map. 'abs' will take absolute values, while scale will resecale the range between [0, 1]'
-
+6. --suffix-list (defult: ['plotly', 'ggplot2']): Use this argument to change suffix for a pair of images. For example, when comparing Matlab and Plotly, use ['plotly', 'matlab']. 
+ 
 ## Directory Structure:
 The program expects follwing directory structure in the path specified by --root-dir argument:
 
