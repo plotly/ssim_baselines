@@ -7,11 +7,13 @@ library(usmap)
 library(mapproj)
 library(ggplot2movies)
 library(hexbin)
-library(stat_quantile)
+library(Hmisc)
+library(interp)
 import("plotly")
 
 write_plotly_image <- function(path) {
   gg = ggplotly()
+  Sys.sleep(1)
   path = str_replace(path, '.R', '_plotly.png')
   print(path)
   save_image(gg, path, width=1200, height=1000) 
@@ -23,6 +25,7 @@ write_images <- function(r_executable){
   }
   out <- tryCatch({
     source(r_executable, encoding="utf-8")
+    Sys.sleep(1)
     ggsave(
       str_replace(r_executable, '.R', '_ggplot2.png'),
       width=1200,
