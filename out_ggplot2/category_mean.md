@@ -8,5 +8,5 @@
 | Layers                   |    0.875796 |
 | Plot basics              |    0.910058 |
 | Programming with ggplot2 |    0.902991 |
-| Scales                   |    0.869577 |
+| Scales                   |    0.863321 |
 | Themes                   |    0.814108 |

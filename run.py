@@ -7,8 +7,8 @@ from PIL.ImageChops import offset
 from matplotlib import colors
 
 import numpy as np
-from numpy.core.defchararray import title
-from numpy.core.fromnumeric import mean, size
+from numpy.core.defchararray import index, title
+from numpy.core.fromnumeric import mean, size, sort
 from skimage.metrics import structural_similarity 
 from PIL import Image, ImageDraw, ImageFont
 import pandas as pd
@@ -90,7 +90,7 @@ def get_category_path(path):
 	return cat_path
 
 
-def write_ssim_csv_html(path, sorted_ssim, save_dir):
+def write_ssim_csv_html(path, ssim_list, save_dir):
 	''''
 	Writes a csv and html file containing ssim for each pair
 	'''
@@ -102,9 +102,9 @@ def write_ssim_csv_html(path, sorted_ssim, save_dir):
 	cat_csv_path = os.path.join(path, 'category_mean.csv')
 	mean_ssim_path = os.path.join(path, 'mean_ssim.txt')
 	
-	data = pd.DataFrame(sorted_ssim,  columns=['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp'])
+	data = pd.DataFrame(ssim_list,  columns=['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp'])
 	
-	
+	print(data)
 	#modifications for html and MD
 	pairs = data.filter(['Pair', 'SSIM'])
 
@@ -188,7 +188,7 @@ def write_ssim_csv_html(path, sorted_ssim, save_dir):
 	# cat_mean['Category'] = pairs.apply(lambda x: make_clickable_cat_md(x['cat_path']), axis=1)
 	cat_mean.to_markdown(cat_md_path, index=False)
 
-	ssim_mean = data['SSIM'].mean()
+	ssim_mean = valid_data['SSIM'].mean()
 	print("\n\nMean SSIM: {}".format(ssim_mean))
 	print('Error Count: {}'.format(len(invalid_data.index)))
 	with open(mean_ssim_path, 'w') as f:
@@ -376,6 +376,8 @@ def main(args):
 			montage = get_montage(images)
 			if not crash:
 				ssim_val, ssim_map = get_ssim(images[0], images[1], args.norm, args.force_resize)
+				if pd.isna(ssim_val):
+					ssim_val = 0.
 			else:
 				ssim_val = -1
 				ssim_map = montage.copy()
@@ -406,10 +408,15 @@ def main(args):
 		print("Subdir {} done!".format(path))
 	
 	# Write CSV and HTML Table
-	sorted_ssim = [(pair, ssim, cat, sub_cat, timestamp) for ssim, pair, timestamp, cat, sub_cat in sorted(zip(ssim_vals, valid_pairs, timestamps, cats, sub_cats))]
+	ssim_list = [(pair, ssim, cat, sub_cat, timestamp) for ssim, pair, timestamp, cat, sub_cat in sorted(zip(ssim_vals, valid_pairs, timestamps, cats, sub_cats))]
+	# df = pd.DataFrame(ssim_list, columns=['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp'])#.sort_values('SSIM')
+	# print(df)
+	# df.to_markdown(os.path.join(args.save_dir, "out.md"), index=False)
+	# df.to_html(os.path.join(args.save_dir, "out.html"), index=False)
 
-	if len(sorted_ssim) > 0:
-		write_ssim_csv_html(args.save_dir, sorted_ssim, args.save_dir)
+	# exit()
+	if len(ssim_list) > 0:
+		write_ssim_csv_html(args.save_dir, ssim_list, args.save_dir)
 	else:
 		with open(os.path.join(args.save_dir, 'failure.txt'), 'w') as f:
 			f.write("There were no valid image pairs found")

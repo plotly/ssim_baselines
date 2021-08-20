@@ -16,3 +16,8 @@ Layers > Geoms > geom_bin_2d (all missing): (polyplot image is not available for
 Layers > Geoms > geom_boxplot: example 9: (polyplot image is not available in the ggplot2 directory)
 Layers > Geoms > geom_density: example 5,6: (polyplot image is not available in the ggplot2 directory)
 Layers > Geoms > geom_rug: Example 9: Nothing is available for example 9 in ggplot2, including R script.
+
+
+#NaN values:
+For matlab > data-distribution-plots > histogram: ssim = NaN
+I have replaced such (NaN) values with 0.
