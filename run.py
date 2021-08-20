@@ -106,10 +106,10 @@ def write_ssim_csv_html(path, sorted_ssim, save_dir):
 	
 	
 	#modifications for html and MD
-	pairs = data.filter(['Pair'])
+	pairs = data.filter(['Pair', 'SSIM'])
 
-	def make_url(val):
-		rel_url = save_dir + '/' + val + '_montage.png'
+	def make_url(val, suffix='_montage.png'):
+		rel_url = save_dir + '/' + val + suffix
 		rel_url = rel_url.replace(os.path.sep, '/')
 		rel_url = urlparse.quote(rel_url)
 		url = GIT_BASE_URL + rel_url
@@ -117,33 +117,44 @@ def write_ssim_csv_html(path, sorted_ssim, save_dir):
 		return url
 
 	def make_clickable_html(url, val):
-		val = val.replace(os.path.sep, '/')
+		if type(val) ==str:
+			val = val.replace(os.path.sep, '/')
 		return '<a href="{}" rel="noopener noreferrer" target="_blank">{}</a>'.format(url,val)
 
 	def make_clickable_md(url, val):
-		val = val.replace(os.path.sep, '/')
+		if type(val) ==str:
+			val = val.replace(os.path.sep, '/')
 		return '[{}]({})'.format(val,url)
 
 	def make_clickable_csv(url):
 		return '{}'.format(url)
 
-	pairs['URL'] = pairs.apply(lambda x: make_url(x['Pair']), axis=1)
+	pairs['montage_url'] = pairs.apply(lambda x: make_url(x['Pair']), axis=1)
+	pairs['ssim_url'] = pairs.apply(lambda x: make_url(x['Pair'], suffix='_ssim_map.png'), axis=1)
 
 	#csv
-	data['Pair'] = pairs.apply(lambda x: make_clickable_csv(x['URL']), axis=1)
+	data['Pair'] = pairs.apply(lambda x: make_clickable_csv(x['montage_url']), axis=1)
 	data.to_csv(csv_path, index=False)
 	
 	#html
-	data['Pair'] = pairs.apply(lambda x: make_clickable_html(x['URL'], x['Pair']), axis=1)
+	data['Pair'] = pairs.apply(lambda x: make_clickable_html(x['montage_url'], x['Pair']), axis=1)
+	data['SSIM'] = pairs.apply(lambda x: make_clickable_html(x['ssim_url'], x['SSIM']), axis=1)
 	data.to_html(html_path, index=False)
 
 	#markdown
-	data['Pair'] = pairs.apply(lambda x: make_clickable_md(x['URL'], x['Pair']), axis=1)
+	data['Pair'] = pairs.apply(lambda x: make_clickable_md(x['montage_url'], x['Pair']), axis=1)
+	data['SSIM'] = pairs.apply(lambda x: make_clickable_md(x['ssim_url'], x['SSIM']), axis=1)
 	data.to_markdown(md_path, index=False)
+
 
 	
 	## MEAN calculation
-	cat_mean = data.groupby('Category', as_index=False).mean()
+	#get back original SSIM values for mean calculation
+	data['SSIM'] = pairs.apply(lambda x: x['SSIM'], axis=1)
+	valid_data = data.loc[data['SSIM'] != -1]
+	invalid_data = data.loc[data['SSIM'] == -1]
+	
+	cat_mean = valid_data.groupby('Category', as_index=False)['SSIM'].mean()
 	cat_mean.columns = ['Category', 'SSIM Mean']
 	print("\n\nCategory-wise SSIM mean:")
 	print(cat_mean)
@@ -179,8 +190,10 @@ def write_ssim_csv_html(path, sorted_ssim, save_dir):
 
 	ssim_mean = data['SSIM'].mean()
 	print("\n\nMean SSIM: {}".format(ssim_mean))
+	print('Error Count: {}'.format(len(invalid_data.index)))
 	with open(mean_ssim_path, 'w') as f:
-		f.write('SSIM Mean: {}'.format(ssim_mean) )
+		f.write('SSIM Mean: {}\n'.format(ssim_mean) )
+		f.write('Error Count: {}'.format(len(invalid_data.index)))
 
 
 	print("\nCSV file write to path {}.".format(csv_path))
@@ -370,14 +383,6 @@ def main(args):
 			if ssim_val is not None and ssim_map is not None:
 				if not crash:
 					pair_prefix = pair[0].rsplit('_', 1)[0]
-					
-					valid_pairs.append(os.path.join(path, pair_prefix))
-					ssim_vals.append(ssim_val)
-					dt = datetime.datetime.now()
-					timestamps.append(dt.strftime('%Y-%m-%d %H:%M:%S'))
-					cats.append(cat)
-					sub_cats.append(sub_cat)
-				
 				else:
 					pair_prefix = os.path.splitext(pair[0])[0]
 					
@@ -386,6 +391,13 @@ def main(args):
 						pair_prefix = pair_prefix.replace(args.error_str, '')
 					
 					pair_prefix = pair_prefix.rsplit('_', 1)[0] + args.error_str
+				
+				valid_pairs.append(os.path.join(path, pair_prefix))
+				ssim_vals.append(ssim_val)
+				dt = datetime.datetime.now()
+				timestamps.append(dt.strftime('%Y-%m-%d %H:%M:%S'))
+				cats.append(cat)
+				sub_cats.append(sub_cat)
 					
 				save_results(os.path.join(args.save_dir, path), pair_prefix, ssim_map, montage, ssim_val)
 				print("Pair: {}, SSIM: {}".format(pair, ssim_val))

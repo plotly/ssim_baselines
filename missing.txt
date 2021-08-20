@@ -1,0 +1,18 @@
+## Missing Cases
+
+Asthetics > aes_group_order: example 10 -11: (polyplot image is not available in the ggplot2 directory)
+Asthetics > aes_group_order: example 13 -14 duplicates: (i dont see any duplicates either in my local or github. Could be your local's issue)
+aes_linetype_size_shape: example 12: (polyplot image is not available in the ggplot2 directory)
+Scales > lims : example 1,2,3,7: (polyplot image is not available in the ggplot2 directory)
+Scales > scale_colour_discrete: example 3: (no polyplot or ggplot2 image available in the directory)
+Scales > scale_continuous: example 4,6:  (polyplot image is not available in the ggplot2 directory)
+Scales > scale_date: example 4: (polyplot image is not available in the ggplot2 directory)
+Scales > scale_discrete: example 6,7: (polyplot image is not available in the ggplot2 directory)
+Scales > scale_gradient: example 7: (polyplot image is not available in the ggplot2 directory)
+Scales > scale_manual: example 4: (polyplot image is not available in the ggplot2 directory)
+Coordinate systems > coor_cartesian: example 2,7: (polyplot image is not available in the ggplot2 directory)
+Coordinate systems > coord_map (all missing): (In fact all 11 are available, both in my local and gtihub)
+Layers > Geoms > geom_bin_2d (all missing): (polyplot image is not available for all in the ggplot2 directory)
+Layers > Geoms > geom_boxplot: example 9: (polyplot image is not available in the ggplot2 directory)
+Layers > Geoms > geom_density: example 5,6: (polyplot image is not available in the ggplot2 directory)
+Layers > Geoms > geom_rug: Example 9: Nothing is available for example 9 in ggplot2, including R script.
