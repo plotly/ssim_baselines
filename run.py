@@ -101,7 +101,8 @@ def write_ssim_csv_html(path, ssim_list, save_dir):
 	cat_md_path = os.path.join(path, 'category_mean.md')
 	cat_csv_path = os.path.join(path, 'category_mean.csv')
 	mean_ssim_path = os.path.join(path, 'mean_ssim.txt')
-	
+	pd.set_option('precision', 4)
+
 	data = pd.DataFrame(ssim_list,  columns=['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp'])
 	
 	print(data)
@@ -119,11 +120,15 @@ def write_ssim_csv_html(path, ssim_list, save_dir):
 	def make_clickable_html(url, val):
 		if type(val) ==str:
 			val = val.replace(os.path.sep, '/')
+		else:
+			val =  '{:,.4f}'.format(val)
 		return '<a href="{}" rel="noopener noreferrer" target="_blank">{}</a>'.format(url,val)
 
 	def make_clickable_md(url, val):
 		if type(val) ==str:
 			val = val.replace(os.path.sep, '/')
+		else:
+			val =  '{:,.4f}'.format(val)
 		return '[{}]({})'.format(val,url)
 
 	def make_clickable_csv(url):
@@ -134,6 +139,7 @@ def write_ssim_csv_html(path, ssim_list, save_dir):
 
 	#csv
 	data['Pair'] = pairs.apply(lambda x: make_clickable_csv(x['montage_url']), axis=1)
+	data['SSIM'] = data['SSIM'].map(lambda x: '{:,.4f}'.format(x))
 	data.to_csv(csv_path, index=False)
 	
 	#html
@@ -156,6 +162,7 @@ def write_ssim_csv_html(path, ssim_list, save_dir):
 	
 	cat_mean = valid_data.groupby('Category', as_index=False)['SSIM'].mean()
 	cat_mean.columns = ['Category', 'SSIM Mean']
+	cat_mean['SSIM Mean'] = cat_mean['SSIM Mean'].map(lambda x: '{:,.4f}'.format(x))
 	print("\n\nCategory-wise SSIM mean:")
 	print(cat_mean)
 	cat_mean.to_csv(cat_csv_path, index=False)
@@ -189,10 +196,10 @@ def write_ssim_csv_html(path, ssim_list, save_dir):
 	cat_mean.to_markdown(cat_md_path, index=False)
 
 	ssim_mean = valid_data['SSIM'].mean()
-	print("\n\nMean SSIM: {}".format(ssim_mean))
+	print("\n\nMean SSIM: {:,.4f}".format(ssim_mean))
 	print('Error Count: {}'.format(len(invalid_data.index)))
 	with open(mean_ssim_path, 'w') as f:
-		f.write('SSIM Mean: {}\n'.format(ssim_mean) )
+		f.write('SSIM Mean: {:,.4f}\n'.format(ssim_mean) )
 		f.write('Error Count: {}'.format(len(invalid_data.index)))
 
 

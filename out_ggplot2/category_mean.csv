@@ -1,11 +1,11 @@
 Category,SSIM Mean
-Aesthetics,0.8785007000098872
-Autoplot and fortify,0.8574716329170964
-Coordinate systems,0.8753157837093064
-Facetting,0.7741553302609305
-Guides axes and legends,0.8897859231746138
-Layers,0.875795617742269
-Plot basics,0.91005752239558
-Programming with ggplot2,0.9029907909207993
-Scales,0.863321284902525
-Themes,0.8141080509026412
+Aesthetics,0.8785
+Autoplot and fortify,0.8575
+Coordinate systems,0.8753
+Facetting,0.7742
+Guides axes and legends,0.8898
+Layers,0.8758
+Plot basics,0.9101
+Programming with ggplot2,0.9030
+Scales,0.8633
+Themes,0.8141
