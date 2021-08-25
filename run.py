@@ -72,7 +72,7 @@ def get_category(path):
 		sub_cat = ""
 	elif len(splits) > 2:
 		if splits[1] == 'code-examples':
-			cat = os.path.sep.join(splits[:2])
+			cat = os.path.sep.join(splits[1:3])
 			sub_cat = os.path.sep.join(splits[3:])
 		else:
 			cat = splits[1]
