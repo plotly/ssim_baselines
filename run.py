@@ -10,8 +10,9 @@ import numpy as np
 from numpy.core.defchararray import index, title
 from numpy.core.fromnumeric import mean, size, sort
 from skimage.metrics import structural_similarity 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 import pandas as pd
+import cv2
 
 GIT_BASE_URL = 'https://github.com/plotly/ssim_baselines/blob/main/'
 
@@ -346,6 +347,76 @@ def get_image_pairs(images, first_suffix='plotly', second_suffix='ggplot2', erro
 	
 	return img_pairs
 
+# def remove_text(img):
+# 	open_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2,2))
+# 	opening = cv2.morphologyEx(img, cv2.MORPH_OPEN, open_kernel, iterations=2)
+# 	close_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,2))
+# 	close = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, close_kernel, iterations=4)
+# 	cnts = cv2.findContours(close, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+# 	cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+# 	for c in cnts:
+# 		x,y,w,h = cv2.boundingRect(c)
+# 		area = cv2.contourArea(c)
+# 		if area > 500:
+# 			ROI = img[y:y+h, x:x+w]
+# 			ROI = cv2.GaussianBlur(ROI, (3,3), 0)
+# 			data = pytesseract.image_to_string(ROI, lang='eng',config='--psm 6')
+# 			if data.isalnum():
+# 				cv2.rectangle(image, (x, y), (x + w, y + h), (36,255,12), 2)
+# 				print(data)
+
+def remove_grid(img):
+	# thresh = cv2.threshold(img, 20, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+	thresh = 255 - img
+	# Remove horizontal
+	horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (10,1))
+	detected_lines =  cv2.morphologyEx(thresh, cv2.MORPH_OPEN, horizontal_kernel, iterations=4)
+	cnts = cv2.findContours(detected_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+	for c in cnts:
+		cv2.drawContours(img, [c], -1, (255,255,255), 3)
+	
+	# Remove horizontal
+	vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1,10))
+	detected_lines = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, vertical_kernel, iterations=4)
+	cnts = cv2.findContours(detected_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+	for c in cnts:
+		cv2.drawContours(img, [c], -1, (255,255,255), 3)
+
+	# Repair image
+	# repair_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1,3))
+	# result = 255 - cv2.morphologyEx(255 - img, cv2.MORPH_CLOSE, repair_kernel, iterations=1)
+	# repair_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,1))
+	# result = cv2.morphologyEx(255 - result, cv2.MORPH_CLOSE, repair_kernel, iterations=1)
+
+	return img
+
+def is_valid(img, valid_thresh=0.008, white_thresh=240):
+
+	img = img.convert('L')
+	img_np = np.array(img)
+	
+	img_np = remove_grid(img_np)
+	count0 = np.sum(img_np <= white_thresh)
+	print(count0, "count0", img.size)
+	w, h  =img.size
+	# print(count1/(w1*h1), '%1')
+	valid_p = count0/(w*h)
+
+	# img_new0 = Image.new('L', img0.size, color=254)
+	# img_new1 = Image.new('L', img1.size, color=254)
+	# sim0, _ = get_ssim(Image.fromarray(out0), img_new0)
+	# sim1, _ = get_ssim(Image.fromarray(out1), img_new1)
+
+	# print(sim0, sim1, "sim01")
+	# out0 = cv2.morphologyEx(img0_np, cv2.MORPH_OPEN, (5,5))
+	# out1 = cv2.morphologyEx(img1_np, cv2.MORPH_OPEN,(5,5))
+	if valid_p < valid_thresh:
+		return False, valid_p, Image.fromarray(img_np)
+	return True, valid_p,  Image.fromarray(img_np)
+
+
 
 def main(args):
 
@@ -380,53 +451,65 @@ def main(args):
 			pair = pair[:2]
 			images = [Image.open(os.path.join(path, x)) for x in pair]
 
+			# exit()
 			montage = get_montage(images)
-			if not crash:
-				ssim_val, ssim_map = get_ssim(images[0], images[1], args.norm, args.force_resize)
-				if pd.isna(ssim_val):
-					ssim_val = 0.
-			else:
-				ssim_val = -1
-				ssim_map = montage.copy()
+			valid_list = [is_valid(img, args.valid_thresh, args.white_thresh) for img in images] 
+			
+			for v in valid_list:
+				valid, _, _ =  v
+				if not valid:
+					invalid_path = os.path.join("invalid_ggplot2", path)
+					os.makedirs(invalid_path, exist_ok=True)
+					print(os.path.splitext(pair[0])[0], "path")
+					valid_list[0][2].save(os.path.join(invalid_path, '{}_valid_p_{:,.4f}.png'.format(os.path.splitext(pair[0])[0], valid_list[0][1])))
+					valid_list[1][2].save(os.path.join(invalid_path, '{}_valid_p_{:,.4f}.png'.format(os.path.splitext(pair[1])[0], valid_list[1][1])))
+					montage.save(os.path.join(invalid_path, '{}_montage.png'.format(os.path.splitext(pair[0])[0])))
+	# 		if not crash:
+	# 			ssim_val, ssim_map = get_ssim(images[0], images[1], args.norm, args.force_resize)
+	# 			if pd.isna(ssim_val):
+	# 				ssim_val = 0.
+	# 		else:
+	# 			ssim_val = -1
+	# 			ssim_map = montage.copy()
 
-			if ssim_val is not None and ssim_map is not None:
-				if not crash:
-					pair_prefix = pair[0].rsplit('_', 1)[0]
-				else:
-					pair_prefix = os.path.splitext(pair[0])[0]
+	# 		if ssim_val is not None and ssim_map is not None:
+	# 			if not crash:
+	# 				pair_prefix = pair[0].rsplit('_', 1)[0]
+	# 			else:
+	# 				pair_prefix = os.path.splitext(pair[0])[0]
 					
-					#n order to remove frist suffix 
-					if pair_prefix.endswith(args.error_str):
-						pair_prefix = pair_prefix.replace(args.error_str, '')
+	# 				#n order to remove frist suffix 
+	# 				if pair_prefix.endswith(args.error_str):
+	# 					pair_prefix = pair_prefix.replace(args.error_str, '')
 					
-					pair_prefix = pair_prefix.rsplit('_', 1)[0] + args.error_str
+	# 				pair_prefix = pair_prefix.rsplit('_', 1)[0] + args.error_str
 				
-				valid_pairs.append(os.path.join(path, pair_prefix))
-				ssim_vals.append(ssim_val)
-				dt = datetime.datetime.now()
-				timestamps.append(dt.strftime('%Y-%m-%d %H:%M:%S'))
-				cats.append(cat)
-				sub_cats.append(sub_cat)
+	# 			valid_pairs.append(os.path.join(path, pair_prefix))
+	# 			ssim_vals.append(ssim_val)
+	# 			dt = datetime.datetime.now()
+	# 			timestamps.append(dt.strftime('%Y-%m-%d %H:%M:%S'))
+	# 			cats.append(cat)
+	# 			sub_cats.append(sub_cat)
 					
-				save_results(os.path.join(args.save_dir, path), pair_prefix, ssim_map, montage, ssim_val)
-				print("Pair: {}, SSIM: {}".format(pair, ssim_val))
-			else:
-				print("Aspect ratio does not match for images at path \"{}\" for pair \"{}\". Use --force argumnet to calcualte ssim anyways". format(path, pair))
-		print("Subdir {} done!".format(path))
+	# 			save_results(os.path.join(args.save_dir, path), pair_prefix, ssim_map, montage, ssim_val)
+	# 			print("Pair: {}, SSIM: {}".format(pair, ssim_val))
+	# 		else:
+	# 			print("Aspect ratio does not match for images at path \"{}\" for pair \"{}\". Use --force argumnet to calcualte ssim anyways". format(path, pair))
+	# 	print("Subdir {} done!".format(path))
 	
-	# Write CSV and HTML Table
-	ssim_list = [(pair, ssim, cat, sub_cat, timestamp) for ssim, pair, timestamp, cat, sub_cat in sorted(zip(ssim_vals, valid_pairs, timestamps, cats, sub_cats))]
-	# df = pd.DataFrame(ssim_list, columns=['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp'])#.sort_values('SSIM')
-	# print(df)
-	# df.to_markdown(os.path.join(args.save_dir, "out.md"), index=False)
-	# df.to_html(os.path.join(args.save_dir, "out.html"), index=False)
+	# # Write CSV and HTML Table
+	# ssim_list = [(pair, ssim, cat, sub_cat, timestamp) for ssim, pair, timestamp, cat, sub_cat in sorted(zip(ssim_vals, valid_pairs, timestamps, cats, sub_cats))]
+	# # df = pd.DataFrame(ssim_list, columns=['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp'])#.sort_values('SSIM')
+	# # print(df)
+	# # df.to_markdown(os.path.join(args.save_dir, "out.md"), index=False)
+	# # df.to_html(os.path.join(args.save_dir, "out.html"), index=False)
 
-	# exit()
-	if len(ssim_list) > 0:
-		write_ssim_csv_html(args.save_dir, ssim_list, args.save_dir)
-	else:
-		with open(os.path.join(args.save_dir, 'failure.txt'), 'w') as f:
-			f.write("There were no valid image pairs found")
+	# # exit()
+	# if len(ssim_list) > 0:
+	# 	write_ssim_csv_html(args.save_dir, ssim_list, args.save_dir)
+	# else:
+	# 	with open(os.path.join(args.save_dir, 'failure.txt'), 'w') as f:
+	# 		f.write("There were no valid image pairs found")
 
 
 if __name__ == '__main__':
@@ -449,6 +532,10 @@ if __name__ == '__main__':
 							help="List of two suffix to find image pairs. Default: ['plotly', 'ggplot2']")
 	parser.add_argument("--error-str", default='_ERROR_CRASH_', type=str,
 						help="Suffix at the end of filename in case of error. Default: _ERROR_CRASH_")
+	parser.add_argument('--valid-thresh', default=0.001, type=float,
+						help='% threshold to separate valid and invalid images. If percentage of white pixels < valid-thresh => invalid')
+	parser.add_argument('--white-thresh', default=240, type=int,
+						help='if pixel value > white-thresh => pixel will be considered white. this is due to Morphing')
 	
 	
 	args = parser.parse_args()
