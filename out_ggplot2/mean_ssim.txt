@@ -1,2 +1,2 @@
 SSIM Mean: 0.8678
-Error Count: 0
+Error and Invalid Count: 0

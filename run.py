@@ -71,8 +71,12 @@ def get_category(path):
 		cat = splits[1]
 		sub_cat = ""
 	elif len(splits) > 2:
-		cat = splits[1]
-		sub_cat = os.path.sep.join(splits[2:])
+		if splits[1] == 'code-examples':
+			cat = os.path.sep.join(splits[:2])
+			sub_cat = os.path.sep.join(splits[3:])
+		else:
+			cat = splits[1]
+			sub_cat = os.path.sep.join(splits[2:])
 	
 	return cat, sub_cat
 
@@ -198,10 +202,10 @@ def write_ssim_csv_html(path, ssim_list, save_dir):
 
 	ssim_mean = valid_data['SSIM'].mean()
 	print("\n\nMean SSIM: {:,.4f}".format(ssim_mean))
-	print('Error Count: {}'.format(len(invalid_data.index)))
+	print('Error and Invalid Count: {}'.format(len(invalid_data.index)))
 	with open(mean_ssim_path, 'w') as f:
 		f.write('SSIM Mean: {:,.4f}\n'.format(ssim_mean) )
-		f.write('Error Count: {}'.format(len(invalid_data.index)))
+		f.write('Error and Invalid Count: {}'.format(len(invalid_data.index)))
 
 
 	print("\nCSV file write to path {}.".format(csv_path))
@@ -347,24 +351,6 @@ def get_image_pairs(images, first_suffix='plotly', second_suffix='ggplot2', erro
 	
 	return img_pairs
 
-# def remove_text(img):
-# 	open_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2,2))
-# 	opening = cv2.morphologyEx(img, cv2.MORPH_OPEN, open_kernel, iterations=2)
-# 	close_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,2))
-# 	close = cv2.morphologyEx(opening, cv2.MORPH_CLOSE, close_kernel, iterations=4)
-# 	cnts = cv2.findContours(close, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-# 	cnts = cnts[0] if len(cnts) == 2 else cnts[1]
-# 	for c in cnts:
-# 		x,y,w,h = cv2.boundingRect(c)
-# 		area = cv2.contourArea(c)
-# 		if area > 500:
-# 			ROI = img[y:y+h, x:x+w]
-# 			ROI = cv2.GaussianBlur(ROI, (3,3), 0)
-# 			data = pytesseract.image_to_string(ROI, lang='eng',config='--psm 6')
-# 			if data.isalnum():
-# 				cv2.rectangle(image, (x, y), (x + w, y + h), (36,255,12), 2)
-# 				print(data)
-
 def remove_grid(img):
 	# thresh = cv2.threshold(img, 20, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 	thresh = 255 - img
@@ -399,19 +385,10 @@ def is_valid(img, valid_thresh=0.008, white_thresh=240):
 	
 	img_np = remove_grid(img_np)
 	count0 = np.sum(img_np <= white_thresh)
-	print(count0, "count0", img.size)
 	w, h  =img.size
 	# print(count1/(w1*h1), '%1')
 	valid_p = count0/(w*h)
 
-	# img_new0 = Image.new('L', img0.size, color=254)
-	# img_new1 = Image.new('L', img1.size, color=254)
-	# sim0, _ = get_ssim(Image.fromarray(out0), img_new0)
-	# sim1, _ = get_ssim(Image.fromarray(out1), img_new1)
-
-	# print(sim0, sim1, "sim01")
-	# out0 = cv2.morphologyEx(img0_np, cv2.MORPH_OPEN, (5,5))
-	# out1 = cv2.morphologyEx(img1_np, cv2.MORPH_OPEN,(5,5))
 	if valid_p < valid_thresh:
 		return False, valid_p, Image.fromarray(img_np)
 	return True, valid_p,  Image.fromarray(img_np)
@@ -455,61 +432,63 @@ def main(args):
 			montage = get_montage(images)
 			valid_list = [is_valid(img, args.valid_thresh, args.white_thresh) for img in images] 
 			
+			#check validity
+			valid = False
+			valid_score = 0.
 			for v in valid_list:
-				valid, _, _ =  v
+				valid, valid_score, _ =  v
 				if not valid:
-					invalid_path = os.path.join("invalid_ggplot2", path)
+					invalid_path = os.path.join("invalid_" + os.path.basename(args.root_dir), path)
 					os.makedirs(invalid_path, exist_ok=True)
-					print(os.path.splitext(pair[0])[0], "path")
 					valid_list[0][2].save(os.path.join(invalid_path, '{}_valid_p_{:,.4f}.png'.format(os.path.splitext(pair[0])[0], valid_list[0][1])))
 					valid_list[1][2].save(os.path.join(invalid_path, '{}_valid_p_{:,.4f}.png'.format(os.path.splitext(pair[1])[0], valid_list[1][1])))
 					montage.save(os.path.join(invalid_path, '{}_montage.png'.format(os.path.splitext(pair[0])[0])))
-	# 		if not crash:
-	# 			ssim_val, ssim_map = get_ssim(images[0], images[1], args.norm, args.force_resize)
-	# 			if pd.isna(ssim_val):
-	# 				ssim_val = 0.
-	# 		else:
-	# 			ssim_val = -1
-	# 			ssim_map = montage.copy()
+					break
+			
+			if not crash and valid:
+				ssim_val, ssim_map = get_ssim(images[0], images[1], args.norm, args.force_resize)
+				if pd.isna(ssim_val):
+					ssim_val = 0.
+			else:
+				ssim_val = -1
+				ssim_map = montage.copy()
 
-	# 		if ssim_val is not None and ssim_map is not None:
-	# 			if not crash:
-	# 				pair_prefix = pair[0].rsplit('_', 1)[0]
-	# 			else:
-	# 				pair_prefix = os.path.splitext(pair[0])[0]
+			if ssim_val is not None and ssim_map is not None:
+				if not crash and valid:
+					pair_prefix = pair[0].rsplit('_', 1)[0]
+				else:
+					pair_prefix = os.path.splitext(pair[0])[0]
 					
-	# 				#n order to remove frist suffix 
-	# 				if pair_prefix.endswith(args.error_str):
-	# 					pair_prefix = pair_prefix.replace(args.error_str, '')
+					#n order to remove frist suffix 
+					if pair_prefix.endswith(args.error_str):
+						pair_prefix = pair_prefix.replace(args.error_str, '')
 					
-	# 				pair_prefix = pair_prefix.rsplit('_', 1)[0] + args.error_str
+					if crash:
+						pair_prefix = pair_prefix.rsplit('_', 1)[0] + args.error_str
+					elif not valid:
+						pair_prefix = pair_prefix.rsplit('_', 1)[0] + "_invalid_{:,.4f}".format(valid_score)
 				
-	# 			valid_pairs.append(os.path.join(path, pair_prefix))
-	# 			ssim_vals.append(ssim_val)
-	# 			dt = datetime.datetime.now()
-	# 			timestamps.append(dt.strftime('%Y-%m-%d %H:%M:%S'))
-	# 			cats.append(cat)
-	# 			sub_cats.append(sub_cat)
+				valid_pairs.append(os.path.join(path, pair_prefix))
+				ssim_vals.append(ssim_val)
+				dt = datetime.datetime.now()
+				timestamps.append(dt.strftime('%Y-%m-%d %H:%M:%S'))
+				cats.append(cat)
+				sub_cats.append(sub_cat)
 					
-	# 			save_results(os.path.join(args.save_dir, path), pair_prefix, ssim_map, montage, ssim_val)
-	# 			print("Pair: {}, SSIM: {}".format(pair, ssim_val))
-	# 		else:
-	# 			print("Aspect ratio does not match for images at path \"{}\" for pair \"{}\". Use --force argumnet to calcualte ssim anyways". format(path, pair))
-	# 	print("Subdir {} done!".format(path))
+				save_results(os.path.join(args.save_dir, path), pair_prefix, ssim_map, montage, ssim_val)
+				print("Pair: {}, SSIM: {}".format(pair, ssim_val))
+			else:
+				print("Aspect ratio does not match for images at path \"{}\" for pair \"{}\". Use --force argumnet to calcualte ssim anyways". format(path, pair))
+		print("Subdir {} done!".format(path))
 	
-	# # Write CSV and HTML Table
-	# ssim_list = [(pair, ssim, cat, sub_cat, timestamp) for ssim, pair, timestamp, cat, sub_cat in sorted(zip(ssim_vals, valid_pairs, timestamps, cats, sub_cats))]
-	# # df = pd.DataFrame(ssim_list, columns=['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp'])#.sort_values('SSIM')
-	# # print(df)
-	# # df.to_markdown(os.path.join(args.save_dir, "out.md"), index=False)
-	# # df.to_html(os.path.join(args.save_dir, "out.html"), index=False)
+	# Write CSV and HTML Table
+	ssim_list = [(pair, ssim, cat, sub_cat, timestamp) for ssim, pair, timestamp, cat, sub_cat in sorted(zip(ssim_vals, valid_pairs, timestamps, cats, sub_cats))]
 
-	# # exit()
-	# if len(ssim_list) > 0:
-	# 	write_ssim_csv_html(args.save_dir, ssim_list, args.save_dir)
-	# else:
-	# 	with open(os.path.join(args.save_dir, 'failure.txt'), 'w') as f:
-	# 		f.write("There were no valid image pairs found")
+	if len(ssim_list) > 0:
+		write_ssim_csv_html(args.save_dir, ssim_list, args.save_dir)
+	else:
+		with open(os.path.join(args.save_dir, 'failure.txt'), 'w') as f:
+			f.write("There were no valid image pairs found")
 
 
 if __name__ == '__main__':
