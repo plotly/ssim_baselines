@@ -355,7 +355,7 @@ def remove_grid(img):
 	# thresh = cv2.threshold(img, 20, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
 	thresh = 255 - img
 	# Remove horizontal
-	horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (10,1))
+	horizontal_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (50,1))
 	detected_lines =  cv2.morphologyEx(thresh, cv2.MORPH_OPEN, horizontal_kernel, iterations=4)
 	cnts = cv2.findContours(detected_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 	cnts = cnts[0] if len(cnts) == 2 else cnts[1]
@@ -363,7 +363,7 @@ def remove_grid(img):
 		cv2.drawContours(img, [c], -1, (255,255,255), 3)
 	
 	# Remove horizontal
-	vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1,10))
+	vertical_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1,50))
 	detected_lines = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, vertical_kernel, iterations=4)
 	cnts = cv2.findContours(detected_lines, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 	cnts = cnts[0] if len(cnts) == 2 else cnts[1]
@@ -371,12 +371,19 @@ def remove_grid(img):
 		cv2.drawContours(img, [c], -1, (255,255,255), 3)
 
 	# Repair image
-	# repair_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1,3))
-	# result = 255 - cv2.morphologyEx(255 - img, cv2.MORPH_CLOSE, repair_kernel, iterations=1)
-	# repair_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,1))
-	# result = cv2.morphologyEx(255 - result, cv2.MORPH_CLOSE, repair_kernel, iterations=1)
+	# repair_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2,2))
+	# result = 255 - cv2.morphologyEx(255 - img, cv2.MORPH_CLOSE, repair_kernel, iterations=2)
+	# repair_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2,2))
+	# result = cv2.morphologyEx(255 - result, cv2.MORPH_CLOSE, repair_kernel, iterations=2)
 
-	return img
+	# kernel = np.ones((3, 3), np.uint8)
+	# edges = cv2.dilate(255 - img, (2,2))
+	smooth = cv2.blur(255 - img, (1, 1))
+	# # (rows, cols) = np.where(edges != 0)
+	# # img[rows, cols] = 255 - smooth[rows, cols]
+
+	return 255 - smooth
+	# return img
 
 def is_valid(img, valid_thresh=0.008, white_thresh=240):
 
@@ -511,7 +518,7 @@ if __name__ == '__main__':
 							help="List of two suffix to find image pairs. Default: ['plotly', 'ggplot2']")
 	parser.add_argument("--error-str", default='_ERROR_CRASH_', type=str,
 						help="Suffix at the end of filename in case of error. Default: _ERROR_CRASH_")
-	parser.add_argument('--valid-thresh', default=0.001, type=float,
+	parser.add_argument('--valid-thresh', default=0.0025, type=float,
 						help='% threshold to separate valid and invalid images. If percentage of white pixels < valid-thresh => invalid')
 	parser.add_argument('--white-thresh', default=240, type=int,
 						help='if pixel value > white-thresh => pixel will be considered white. this is due to Morphing')
