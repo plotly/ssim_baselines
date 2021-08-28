@@ -1,4 +1,4 @@
-function create_offline_matlab_and_plotly_plots(path_to_plot_script, path_to_crash_image)
+function create_offline_matlab_and_plotly_plots(path_to_plot_script, path_to_crash_image, plot_name)
 
 run(path_to_plot_script);    % script containing the plot code, outputting gcf
 pause(0.5);                  % pause to prevent MATLAB from crashing and errors
@@ -9,7 +9,25 @@ image_save_location_plotly = replace(path_to_plot_script, '.m', '_plotly.png'); 
 saveas(gcf, image_save_location_matlab);        % write MATLAB image
 
 try
-    f = fig2plotly(gcf, 'open', false, 'strip', true);  % convert matlab plot gcf to plotly
+      
+    if strcmp(plot_name, 'pie3')
+        f = fig2plotly(gcf, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'pcolor')
+        f = fig2plotly(gcf, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'polarplot')
+        f = fig2plotly(gcf, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'contour3')
+        f = fig2plotly(gcf, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'compass')
+        f = fig2plotly(gcf, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'ezpolar')
+        f = fig2plotly(gcf, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'streamtube')
+        f = fig2plotly(gcf, 'open', false, 'TreatAs', plot_name, 'quality', 30, 'Zmin', 6);  % convert matlab plot gcf to plotly
+    else
+        f = fig2plotly(gcf, 'open', false);  % convert matlab plot gcf to plotly
+    end
+
     write_image(f, 'png', image_save_location_plotly);  % write plotly image
 catch
     disp(strcat("++++++++++++ERROR", path_to_plot_script))     % if creating/writing plotly crashes, catch and prevent from MATLAB from crashing

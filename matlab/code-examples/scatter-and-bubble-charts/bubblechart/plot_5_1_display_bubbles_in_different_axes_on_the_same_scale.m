@@ -20,20 +20,3 @@ xlabel('Number of Industrial Sites')
 ylabel('Contamination Level');
 bubblesize(ax1,[5 30])
 bubblesize(ax2,[5 30]);
-% Adjust scale of the bubbles
-alltowns = [towns1 towns2];
-newlims = [min(alltowns) max(alltowns)];
-bubblelim(ax1,newlims)
-bubblelim(ax2,newlims)
-
-% Adjust x-axis limits
-allx = [xlim(ax1) xlim(ax2)];
-xmin = min(allx);
-xmax = max(allx);
-xlim([ax1 ax2],[xmin xmax]);
-
-% Adjust y-axis limits
-ally = [ylim(ax1) ylim(ax2)];
-ymin = min(ally);
-ymax = max(ally);
-ylim([ax1 ax2],[ymin ymax]);

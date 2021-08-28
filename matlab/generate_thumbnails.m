@@ -1,4 +1,5 @@
-GENERATE_ONLY_MATLAB_THUMBNAILS = true;
+clf reset
+GENERATE_ONLY_MATLAB_THUMBNAILS = false;
 
 % folder structure:
 % -generate_offline_ssim_plots.m      : baseline script that loops though all folders
@@ -12,6 +13,9 @@ GENERATE_ONLY_MATLAB_THUMBNAILS = true;
 % ----plot_x_name_matlab.png          : generated matlab .png
 % ----plot_x_name_plotly.png          : generated plotly .png
 % --thumbs                            : generated thumbnails
+
+path_to_crash_image = dir("generate_thumbnails/error_placeholder.png");
+path_to_crash_image = fullfile(path_to_crash_image.folder, path_to_crash_image.name);
 
 files = dir("code-examples/");
 files = files([files(:).isdir]); 
@@ -36,7 +40,7 @@ for folder = folders'
         if contains(path_scipt, '.m')
             path_to_script = fullfile(folder.folder, folder.name, sub_folder.name, scripts(1).name);
             disp(path_to_script)
-            create_thumbnail(path_to_script, folder.name, sub_folder.name, GENERATE_ONLY_MATLAB_THUMBNAILS)
+            create_thumbnail(path_to_script, folder.name, sub_folder.name, GENERATE_ONLY_MATLAB_THUMBNAILS, path_to_crash_image)
 
         end
     end

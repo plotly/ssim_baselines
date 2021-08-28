@@ -3,4 +3,3 @@ y = randn(10000,1);
 h = histogram2(x,y);
 xlabel('x')
 ylabel('y');
-nXnY = h.NumBins;

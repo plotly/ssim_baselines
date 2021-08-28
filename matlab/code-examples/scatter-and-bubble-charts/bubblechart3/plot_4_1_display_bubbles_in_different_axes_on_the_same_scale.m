@@ -25,7 +25,3 @@ ylabel('Regulated Sites')
 zlabel('Contamination Level');
 bubblesize(ax1,[5 20])
 bubblesize(ax2,[5 20]);
-alltowns = [towns1 towns2];
-newlims = [min(alltowns) max(alltowns)];
-bubblelim(ax1,newlims)
-bubblelim(ax2,newlims);

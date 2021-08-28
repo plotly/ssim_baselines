@@ -15,7 +15,3 @@ polarbubblechart(pax2,theta2,altitude2,planesize2);
 title('Airport B');
 bubblesize(pax1,[5 20])
 bubblesize(pax2,[5 20]);
-allsizes = [planesize1 planesize2];
-newlims = [min(allsizes) max(allsizes)];
-bubblelim(pax1,newlims)
-bubblelim(pax2,newlims);

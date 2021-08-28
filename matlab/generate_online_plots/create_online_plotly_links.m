@@ -5,14 +5,32 @@ pause(0.5);                  % pause to prevent MATLAB from crashing and errors
 
 try
     category = strcat('1A-plot-types/', category_name, '/', plot_name, '/', script_name);
-    f = fig2plotly(gcf, 'filename', category, 'offline', false, 'strip', true, 'world_readable', false, 'open', false);  % convert matlab plot gcf to plotly
+    
+    if strcmp(plot_name, 'pie3')
+        f = fig2plotly(gcf, 'filename', category, 'offline', false, 'world_readable', true, 'open', false, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'pcolor')
+        f = fig2plotly(gcf, 'filename', category, 'offline', false, 'world_readable', true, 'open', false, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'polarplot')
+        f = fig2plotly(gcf, 'filename', category, 'offline', false, 'world_readable', true, 'open', false, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'contour3')
+        f = fig2plotly(gcf, 'filename', category, 'offline', false, 'world_readable', true, 'open', false, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'compass')
+        f = fig2plotly(gcf, 'filename', category, 'offline', false, 'world_readable', true, 'open', false, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'ezpolar')
+        f = fig2plotly(gcf, 'filename', category, 'offline', false, 'world_readable', true, 'open', false, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+    elseif strcmp(plot_name, 'streamtube')
+        f = fig2plotly(gcf, 'filename', category, 'offline', false, 'world_readable', true, 'open', false, 'TreatAs', plot_name, 'quality', 30, 'Zmin', 6);  % convert matlab plot gcf to plotly
+    else
+%         f = fig2plotly(gcf, 'filename', category, 'offline', false, 'strip', true, 'world_readable', true, 'open', false);  % convert matlab plot gcf to plotly
+        f = fig2plotly(gcf, 'filename', category, 'offline', false, 'world_readable', true, 'open', false);  % convert matlab plot gcf to plotly
+    end
     f = f.url;
 catch
     disp(strcat("++++++++++++ERROR", path_to_plot_script))     % if creating/writing plotly crashes, catch and prevent from MATLAB from crashing
     f = 'error';
 end
 
-script_name = script_name(1:end-2)
+script_name = script_name(1:end-2);
 ssim_comparison = strcat('https://raw.githubusercontent.com/plotly/ssim_baselines/main/out_matlab/matlab/', category_name, '/', plot_name, '/', script_name, '_montage.png');
 ssim_map = strcat('https://raw.githubusercontent.com/plotly/ssim_baselines/main/out_matlab/matlab/', category_name, '/', plot_name, '/', script_name, '_ssim_map.png');
 

@@ -44,7 +44,7 @@ for folder = folders'
                 
                 % call it in a function so that worskpace does not create
                 % variables that will interfere and ruin other plots
-                create_offline_matlab_and_plotly_plots(path_to_script, path_to_crash_image) 
+                create_offline_matlab_and_plotly_plots(path_to_script, path_to_crash_image, sub_folder.name) 
             end
         end
     end

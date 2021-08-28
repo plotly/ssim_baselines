@@ -3,4 +3,3 @@ loc = ["NJ" "NY" "MA" "OH" "NH" "ME" "CT" "PA" "RI" "VT"]';
 plant = ["Plant A" "Plant A" "Plant A" "Plant A" ...
        "Plant A" "Plant A" "Plant A" "Plant B" "Plant B" "Plant B"]';
 tbl = table(n,loc,plant,'VariableNames',["Mislabeled" "State" "Manufacturing Plant"]);
-bubblecloud(tbl,"Mislabeled","State");

@@ -1,4 +1,4 @@
-function create_thumbnail(path_to_script, category_name, plot_name, GENERATE_ONLY_MATLAB_THUMBNAILS)
+function create_thumbnail(path_to_script, category_name, plot_name, GENERATE_ONLY_MATLAB_THUMBNAILS, path_to_crash_image)
 
     pause(0.5)    % pause to let it catch up and prevent problems
     
@@ -14,14 +14,24 @@ function create_thumbnail(path_to_script, category_name, plot_name, GENERATE_ONL
         saveas(gcf, save_location)
     else
         try
-            f = fig2plotly(matlab_fig, 'open', false,'strip', true);
+            if strcmp(plot_name, 'pie3')
+                f = fig2plotly(matlab_fig, 'open', false, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+            elseif strcmp(plot_name, 'pcolor')
+                f = fig2plotly(matlab_fig, 'open', false, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+            elseif strcmp(plot_name, 'polarplot')
+                f = fig2plotly(matlab_fig, 'open', false, 'TreatAs', plot_name);  % convert matlab plot gcf to plotly
+            else
+                f = fig2plotly(matlab_fig, 'open', false);  % convert matlab plot gcf to plotly
+            end
+            
             f.layout.margin.t = 0;
             f.layout.margin.b = 0;
             f.layout.margin.l = 0;
             f.layout.margin.r = 0;
             write_image(f,'png', save_location, 160, 160, 2)
         catch
-            saveas(gcf, save_location)
+            copyfile(path_to_crash_image, save_location )
+
         end
     end
     
