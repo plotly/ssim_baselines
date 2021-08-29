@@ -41,7 +41,7 @@ def save_results(path, name, ssim_map, montage, ssim_val):
 		x = int(width/2 - f_w/2)
 		return (x, margin), new_img
 
-	font = ImageFont.truetype('arial', size=26)
+	font = ImageFont.truetype('/usr/share/fonts/truetype/arial.ttf', size=26)
 	title = 'SSIM: {:.4f}'.format(ssim_val)
 
 	
@@ -108,7 +108,7 @@ def write_ssim_csv_html(path, ssim_list, save_dir):
 	mean_ssim_path = os.path.join(path, 'mean_ssim.txt')
 	pd.set_option('precision', 4)
 
-	data = pd.DataFrame(ssim_list,  columns=['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp'])
+	data = pd.DataFrame(ssim_list,  columns=['Pair', 'SSIM', 'Category', 'Sub-Category', "Plot-name", "Original-plot-name", 'Timestamp'])
 	
 	print(data)
 	#modifications for html and MD
@@ -152,10 +152,14 @@ def write_ssim_csv_html(path, ssim_list, save_dir):
 	data['SSIM'] = pairs.apply(lambda x: make_clickable_html(x['ssim_url'], x['SSIM']), axis=1)
 	data.to_html(html_path, index=False)
 
+	data = data[['Pair', 'SSIM', 'Category', 'Sub-Category', 'Timestamp']]
+
 	#markdown
 	data['Pair'] = pairs.apply(lambda x: make_clickable_md(x['montage_url'], x['Pair']), axis=1)
 	data['SSIM'] = pairs.apply(lambda x: make_clickable_md(x['ssim_url'], x['SSIM']), axis=1)
-	data.to_markdown(md_path, index=False)
+	markdown_file_buffer = data.to_markdown(index=False)
+	with open(md_path, "w") as f:
+		f.write(markdown_file_buffer)
 
 
 	
@@ -198,7 +202,9 @@ def write_ssim_csv_html(path, ssim_list, save_dir):
 
 	#markdown
 	# cat_mean['Category'] = pairs.apply(lambda x: make_clickable_cat_md(x['cat_path']), axis=1)
-	cat_mean.to_markdown(cat_md_path, index=False)
+	markdown_file_buffer = cat_mean.to_markdown(index=False)
+	with open(cat_md_path, "w") as f:
+		f.write(markdown_file_buffer)
 
 	ssim_mean = valid_data['SSIM'].mean()
 	print("\n\nMean SSIM: {:,.4f}".format(ssim_mean))
@@ -334,7 +340,6 @@ def get_image_pairs(images, first_suffix='plotly', second_suffix='ggplot2', erro
 			else:
 				#ensure that first suffix (plotly) is reference image
 				continue
-				
 			
 			if other_img is not None or other_img_err is not None:
 				# if crash:
@@ -418,6 +423,8 @@ def main(args):
 	ssim_vals = []
 	timestamps= []
 	cats = []
+	original_plot_names = []
+	plot_names = []
 	sub_cats = []
 	
 	for i, path in enumerate(subdirs):
@@ -427,7 +434,7 @@ def main(args):
 
 		image_pairs = get_image_pairs(image_names, args.suffix_list[0], args.suffix_list[1], args.error_str)
 
-		print("Number of pairs found: {}".format(len(image_pairs)))
+		print("Number of pairs found: {} {}".format(len(image_pairs),image_names ))
 
 		cat, sub_cat = get_category(path)
 		for j, pair in enumerate(image_pairs):
@@ -461,6 +468,7 @@ def main(args):
 				ssim_map = montage.copy()
 
 			if ssim_val is not None and ssim_map is not None:
+				original_plot_name = pair[0].rsplit('_', 1)[0]
 				if not crash and valid:
 					pair_prefix = pair[0].rsplit('_', 1)[0]
 				else:
@@ -480,6 +488,8 @@ def main(args):
 				dt = datetime.datetime.now()
 				timestamps.append(dt.strftime('%Y-%m-%d %H:%M:%S'))
 				cats.append(cat)
+				plot_names.append(pair_prefix)
+				original_plot_names.append(original_plot_name)
 				sub_cats.append(sub_cat)
 					
 				save_results(os.path.join(args.save_dir, path), pair_prefix, ssim_map, montage, ssim_val)
@@ -489,7 +499,7 @@ def main(args):
 		print("Subdir {} done!".format(path))
 	
 	# Write CSV and HTML Table
-	ssim_list = [(pair, ssim, cat, sub_cat, timestamp) for ssim, pair, timestamp, cat, sub_cat in sorted(zip(ssim_vals, valid_pairs, timestamps, cats, sub_cats))]
+	ssim_list = [(pair, ssim, cat, sub_cat, plot_name, original_plot_name, timestamp) for ssim, pair, timestamp, cat, sub_cat, plot_name, original_plot_name in sorted(zip(ssim_vals, valid_pairs, timestamps, cats, sub_cats, plot_names, original_plot_names))]
 
 	if len(ssim_list) > 0:
 		write_ssim_csv_html(args.save_dir, ssim_list, args.save_dir)
