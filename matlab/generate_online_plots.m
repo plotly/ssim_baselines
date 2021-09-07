@@ -20,6 +20,9 @@
 % path_to_crash_image = fullfile(path_to_crash_image.folder, path_to_crash_image.name);
 write_file = fopen('links_for_python_md_finish.csv','w') ;
 
+path_to_crash_image = dir("generate_offline_ssim_plots/matlab_crash_image.png");
+path_to_crash_image = fullfile(path_to_crash_image.folder, path_to_crash_image.name);
+
 files = dir("code-examples/");
 files = files([files(:).isdir]); 
 files = files(~ismember({files(:).name},{'.','..'}));
@@ -45,7 +48,7 @@ for folder = folders'
                 
                 % call it in a function so that worskpace does not create
                 % variables that will interfere and ruin other plots
-                create_online_plotly_links(path_to_script, folder.name, sub_folder.name, script.name, write_file) 
+                create_online_plotly_links(path_to_script, folder.name, sub_folder.name, script.name, write_file, path_to_crash_image) 
             end
         end
     end
