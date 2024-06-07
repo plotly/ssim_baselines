@@ -10,6 +10,13 @@ This program takes a directory containing sub-directories with image pairs, and 
 4. PIL
 5. Pandas
 
+<div align="center">
+  <a href="https://dash.plotly.com/project-maintenance">
+    <img src="https://dash.plotly.com/assets/images/maintained-by-plotly.png" width="400px" alt="Maintained by Plotly">
+  </a>
+</div>
+
+
 ## How to run:
 to execute this program, you can execute following command from terminal:
 
